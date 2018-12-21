@@ -1,0 +1,91 @@
+
+0<html>
+<Return>1</Return>
+<FXS>1 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+1<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+2<html>
+<Return>0</Return>
+<FXS>0</FXS>
+<CallCtl>0</CallCtl>
+<LCM>0</LCM>
+</html>
+
+3<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+4<html>
+<Return>1</Return>
+<FXS>1 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+5<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+6<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+7<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+8<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+9<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+10<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+11<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>1 LCMState=5 </LCM>
+</html>
+
+12<html>
+<Return>1</Return>
+<FXS>0 FXSState=0x82</FXS>
+<CallCtl>1 CallCtlState=0x62</CallCtl>
+<LCM>0 LCMState=5 </LCM>
+</html>

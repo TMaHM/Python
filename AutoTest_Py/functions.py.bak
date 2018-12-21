@@ -1,0 +1,435 @@
+import time
+import requests
+import re
+import os
+import sys
+
+import configurations as conf
+from PyQt5.QtCore import QTime
+
+# url_prefix = conf.Url().url_prefix
+# url_suffix = conf.Url().url_suffix
+# url_check_suffix = conf.Url().url_check_suffix
+# url_get_memory = conf.Url().url_get_memory
+
+# url_prefix = 'http://'
+# url_suffix = '/phonestatus.htm'
+# url_suffix = '/okstatus.htm'
+# url_suffix = '/AutoTest&'
+# url_check_suffix = 'autoverify=STATE='
+
+
+class Phone_Function:
+    """
+    进行实例化时，需要一个参数：cur_exec_file,即当前执行文件的文件名，由os.path.basename(__file__)提供
+    Usage::
+
+        >>> import os
+        >>> from functions import Phone_Function
+        >>> ip = '10.3.2.10'
+        >>> cur_exec_file = os.path.basename(__file__)
+        >>> pf = Phone_Function(cur_exec_file)
+        >>> pf.idle_state_set(ip)
+        >>> pf.check_status(ip, 'speaker')
+    """
+
+    def __init__(self, cur_exec_file):
+        """设置全局变量"""
+        # 当前执行文件的文件名
+        self.cur_exec_file = cur_exec_file
+        # 当前所在目录的路径
+        self.root_path = os.path.dirname(__file__)
+        # 去除文件名后缀，用作建立当前执行文件的log存放目录
+        self.cur_exec_file_nosuffix = re.split(r'\.', self.cur_exec_file)[0]
+        # log及截屏文件存放目录
+        self.log_dir_path = self.root_path + '\\log\\' + self.cur_exec_file_nosuffix + '\\'
+        # log文件绝对路径
+        self.log_file = self.log_dir_path + self.cur_exec_file_nosuffix + '.log'
+        if not os.path.exists(self.log_dir_path):
+            os.makedirs(self.log_dir_path)
+
+    def cur_time(self):
+        get_time = '[' + QTime.currentTime().toString() + ']'
+        return get_time
+
+    def idle_state_set(self, ip):
+        """将话机置为idle态，需要一个参数:话机IP，参数类型：string\n
+        Usage::
+
+            >>> ip = '10.3.2.10'
+            >>> cur_exec_file = os.path.basename(__file__)
+            >>> pf = Phone_Function(cur_exec_file)
+            >>> pf.idle_stat_set(ip)
+        """
+
+        url_keyboard = conf.Url(ip).url_keyboard
+        url_F4 = url_keyboard + 'F4'
+        url_X = url_keyboard + 'X'
+        try:
+            r1 = requests.get(url_F4, timeout=5)
+        except requests.exceptions.ConnectionError:
+            r1 = 0
+            r1_status = self.cur_time(
+            ) + 'Connect Error: ' + ip + ' --> Please Check...'
+        time.sleep(conf.sleep_time())
+        try:
+            r2 = requests.get(url_X, timeout=5)
+        except requests.exceptions.ConnectionError:
+            r2 = 0
+            r2_status = self.cur_time(
+            ) + 'Connect Error: ' + ip + ' --> Please Check...'
+        time.sleep(conf.sleep_time())
+
+        with open(self.log_file, 'a+', encoding='utf-8') as f:
+            f.write(self.cur_time + ip + "回到Idle态...\n")
+            if r1 != 0:
+                f.write(self.cur_time + "Press F4 Response: " +
+                        str(r1.status_code) + '\n')
+            elif r1 == 0:
+                f.write(self.cur_time + r1_status + '\n')
+            if r2 != 0:
+                f.write(self.cur_time + "Press X Response: " +
+                        str(r2.status_code) + '\n')
+            elif r2 == 0:
+                f.write(self.cur_time + r2_status + '\n')
+            f.close()
+
+    def check_status(self, ip, status):
+        """检查话机当前状态，需要两个参数：话机IP和需检查的status，参数类型:string\n
+        返回值：True / False\n
+        只有r.status返回200，并且check状态ok时，check_result返回True \n
+        Usage::
+
+            >>> ip = '10.3.2.10'
+            >>> status = 'idle'
+            >>> check_status(ip, status)
+
+        Depending on the check result, there are two different format of the response,\n
+        Error::
+            <html>
+            <Return>1</Return>
+            <FXS>1 FXSState=0x81</FXS>
+            <CallCtl>1 CallCtlState=0x61</CallCtl>
+            <LCM>1 LCMState=4 </LCM>
+            </html>
+        
+        Success::
+            <html>
+            <Return>0</Return>
+            <FXS>0</Return>
+            <CallCtl>0</CallCtl>
+            <LCM>0</LCM>
+            </html>
+        """
+
+        # Define the phone status dict for returning status code for which the check status should be.
+        phone_status_dir = {
+            'idle':         [{'code': '0'}, {'FXSState': '0x80', 'CallCtlState': '0x60', 'LCMState': '-1'}],
+            'speaker':      [{'code': '1'}, {'FXSState': '0x81', 'CallCtlState': '0x61', 'LCMState': '4'}],
+            'outgoing':     [{'code': '2'}, {'FXSState': '0x82', 'CallCtlState': '0x62', 'LCMState': '5'}],
+            'talking':      [{'code': '3'}, {'FXSState': '0x82', 'CallCtlState': '0x64', 'LCMState': '6'}],
+            'ringing':      [{'code': '4'}, {'FXSState': '0x82', 'CallCtlState': '0x63', 'LCMState': '3'}],
+            'hold':         [{'code': '5'}, {'FXSState': '0x82', 'CallCtlState': '0x87', 'LCMState': '7'}],
+            'new_initiate': [{'code': '6'}, {'FXSState': '0x82', 'CallCtlState': '0x81', 'LCMState': '11'}],
+            'new_talking':  [{'code': '7'}, {'FXSState': '0x82', 'CallCtlState': '0x82', 'LCMState': '6'}],
+            'conference':   [{'code': '8'}, {'FXSState': '0x82', 'CallCtlState': '0x88', 'LCMState': '9'}],
+            'conf_held':    [{'code': '9'}, {'FXSState': '0x82', 'CallCtlState': '0x8d', 'LCMState': '9'}],
+            'check_ok':     [{'code': '0'}, {'FXS': '0', 'CallCtl': '0', 'LCM': '0'}],
+        }
+
+        pattern_status = r'<([a-zA-Z]+)>(.*)</\1>'
+        # 当r.status返回200，并且check状态ok时，check_result返回True
+        check_result = False
+
+        self.need_check = phone_status_dir[status][0]['code']
+        cur_status_dir = {}
+        warning_list = []
+
+        # url = url_prefix + usr + ':' + pwd + '@' + ip + \
+        #     url_suffix + url_check_suffix + need_check
+        url_check = conf.Url(ip).url_check_status + self.need_check
+        try:
+            r = requests.get(url_check, timeout=5)
+            if r.status_code == 200:
+                status_get = re.findall(pattern_status, r.text)
+                if status_get:
+                    with open(self.log_file, 'a+', encoding='utf-8') as f:
+                        # status_get = [('CallCtl', '0')],这是一个列表，元素为一个元组
+                        # 取出元组后再处理，each_status = ('CallCtl', '0')
+                        # check_entry = CallCtl; cur_status = 0
+                        for each_status in status_get:
+                            check_entry = each_status[0]
+                            cur_status = re.split(r'\s', each_status[1])
+                            if check_entry == 'Return':
+                                if cur_status[0] == '0':
+                                    check_result = True
+                                    warning_content = self.cur_time + ip + ' ' + status.title(
+                                    ) + ' status check success...\n'
+                                    f.write(warning_content)
+                                elif cur_status[0] == '1':
+                                    warning_content = self.cur_time + ip + ' ' + status.title(
+                                    ) + ' status check error...\n'
+                                    f.write(warning_content)
+                                    self.down_screenshot(ip, status)
+                            else:
+                                if cur_status[0] == '0':
+                                    cur_status_dir[check_entry] = cur_status[0]
+                                    warning_content = self.cur_time + ip + ' ' + check_entry + ' status check success...\n'
+                                    f.write(warning_content)
+                                elif cur_status[0] == '1':
+                                    cur_status_disc = re.split(
+                                        r'=', cur_status[1])[0]
+                                    cur_status_code = re.split(
+                                        r'=', cur_status[1])[1]
+                                    cur_status_dir[
+                                        cur_status_disc] = cur_status_code
+                                    warning_content = self.cur_time + cur_status[1] + ' --> should be ' + \
+                                        phone_status_dir[status][1][cur_status_disc] + '\n'
+                                    warning_list.append(warning_content)
+                        dir_match = 0
+                        for key, value in phone_status_dir.items():
+                            if value[1] == cur_status_dir:
+                                dir_match += 1
+                                f.write(self.cur_time +
+                                        'The current status belongs to [' +
+                                        key.title() + ']\n')
+                        if dir_match == 0:
+                            f.write(
+                                self.cur_time +
+                                'The current status cannot match to any status...\n'
+                            )
+                            f.write(str(cur_status_dir) + '\n')
+                        for warning in warning_list:
+                            f.write(warning)
+                        f.close()
+            else:
+                with open(self.log_file, 'a+', encoding='utf-8') as f:
+                    f.write(self.cur_time +
+                            'Check status failed because request return ' +
+                            r.status_code + '\n')
+                    f.close()
+        except requests.exceptions.ConnectionError:
+            with open(self.log_file, 'a+', encoding='utf-8') as f:
+                f.write(self.cur_time +
+                        'Connect error, please check the url: ' + url_check +
+                        '\n')
+                f.close()
+
+        return check_result
+
+    def down_screenshot(self, ip, status):
+        """用于在check status失败时对话机截屏，不需要主动调用"""
+
+        url_screenshot = conf.Url(ip).url_screenshot
+        try:
+            r = requests.get(url_screenshot, timeout=5)
+            if r.status_code == 200:
+                screenshot_time = re.sub(r':', '',
+                                         QTime.currentTime().toString())
+                screenshot_named = self.log_dir_path + 'Check' + status + 'Error' + screenshot_time + '.jpg'
+                with open(screenshot_named, 'wb') as f:
+                    f.write(r.content)
+                    f.close()
+            else:
+                with open(self.log_file, 'a+', encoding='utf-8') as f:
+                    warning_content = self.cur_time + 'Cannot capture screen now because requests return ' + str(
+                        r.status_code)
+                    f.write(warning_content + '\n')
+                    f.close()
+        except requests.exceptions.ConnectionError:
+            with open(self.log_file, 'a+', encoding='utf-8') as f:
+                warning_content = self.cur_time + 'Connect ' + ip + ' Error...\n' + 'Download screenshot from ' + ip + ' failed...\n'
+                f.write(warning_content)
+                f.close()
+
+    def get_memory(self, ip):
+        """用于获取话机当前内存，需要一个参数：IP\n
+        Usage::
+            >>> get_memory(ip)
+        """
+
+        url_get_memory = conf.Url(ip).url_get_memory
+        pattern_memory = r'(?<=MemoryFree>).*(?=</MemoryFree>)'
+
+        try:
+            r = requests.get(url_get_memory, timeout=5)
+            if r.status_code == 200:
+                memory_free = re.search(pattern_memory, r.text).group()
+                with open(self.log_file, 'a+', encoding='utf-8') as f:
+                    warning_content = self.cur_time + ip + ' ' + memory_free + '\n'
+                    f.write(warning_content)
+                    f.close()
+            else:
+                with open(self.log_file, 'a+', encoding='utf-8') as f:
+                    f.write(self.cur_time +
+                            'Get MemoryFree Failed because requests return ' +
+                            str(r.status_code))
+                    f.close()
+        except requests.exceptions.ConnectionError:
+            with open(self.log_file, 'a+', encoding='utf-8') as f:
+                f.write(self.cur_time +
+                        'Connect error, please check the url: ' +
+                        url_get_memory + '\n')
+                f.close()
+
+    def dial(self, ip, extension, Account='1'):
+        """采用ActionURL拨号，需要3个参数，caller IP， called Extension，caller Account(默认为Account1) \n
+        ActionURL的格式为：http://admin:admin@192.168.0.124/Phone_ActionURL&Command=1&Number=206&Account=1 \n
+        Usage::
+            >>> dial(caller_IP, called_extension)
+            >>> dial(caller_IP, called_extension, Account=2)
+        """
+        if Account == '1':
+            url_dial = conf.Url(ip, number=extension).url_dial
+        elif Account:
+            url_dial = conf.Url(
+                ip, account='&Account=' + Account, number=extension).url_dial
+
+        try:
+            r = requests.get(url_dial, timeout=5)
+            if r.status_code == 200:
+                with open(self.log_file, 'a+', encoding='utf-8') as f:
+                    f.write(self.cur_time + 'Account' + Account + ' dial ' +
+                            extension + '\n')
+                    f.close()
+            elif r.status_code == 401:
+                with open(self.log_file, 'a+', encoding='utf-8') as f:
+                    warning_content = 'Cannot dial now...Authentication Failed because requests return ' + str(
+                        r.status_code)
+                    f.write(self.cur_time + warning_content + '\n')
+                    f.write(self.cur_time + 'Will try another pwd...\n')
+                    if Account == '1':
+                        url_dial_again = conf.Url(
+                            ip, number=extension, pwd='222222').url_dial
+                    else:
+                        url_dial_again = conf.Url(
+                            ip, account='&Account' + Account,
+                            number=extension).url_dial
+                    try:
+                        r = requests.get(url_dial_again)
+                        if r.status_code == 200:
+                            f.write(self.cur_time + 'Try pwd:222222 success\n')
+                            f.write(self.cur_time + 'Account' + Account +
+                                    ' dial ' + extension + '\n')
+                            f.close()
+                        elif r.status_code == 401:
+                            warning_content = 'Cannot dial now Authenticantion Failed again because requests return ' + str(
+                                r.status_code)
+                            f.write(self.cur_time + warning_content + '\n')
+                            f.close()
+                    except requests.exceptions.ConnectionError:
+                        with open(self.log_file, 'a+', encoding='utf-8') as f:
+                            f.write(self.cur_time +
+                                    'Connect error, please check the url: ' +
+                                    url_dial + '\n')
+                            f.close()
+            else:
+                with open(self.log_file, 'a+', encoding='utf-8') as f:
+                    f.write(self.cur_time +
+                            'Dialing Failed with unkown reason...\n')
+                    f.close()
+
+        except requests.exceptions.ConnectionError:
+            with open(self.log_file, 'a+', encoding='utf-8') as f:
+                f.write(self.cur_time +
+                        'Connect error, please check the url: ' + url_dial +
+                        '\n')
+                f.close()
+
+    def answer(self, ip_B, ip_A):
+        """需要两个参数：called的IP在前，caller的IP在后\n
+        返回值为 True / False，只有requests返回200，并且检查talking态成功，返回True\n
+        Usage::
+            >>> answer(ip)
+        """
+
+        url_answer = conf.Url(ip_B).url_keyboard + 'F1'
+        check_answer = False
+
+        try:
+            r = requests.get(url_answer, timeout=5)
+            with open(self.log_file, 'a+', encoding='utf-8') as f:
+                f.write(self.cur_time + ip_B + ' Press F1\n')
+                if r.status_code == 200:
+                    f.write(self.cur_time + ip_B + ' requests return ' +
+                            str(r.status_code) + '\n')
+                    time.sleep(1)
+                    if self.check_status(ip_B,
+                                         'talking') and self.check_status(
+                                             ip_A, 'talking'):
+                        f.write(self.cur_time + ip_B + ' answered...\n')
+                        f.close()
+                        check_answer = True
+                        return check_answer
+                    else:
+                        f.write(self.cur_time + ip_B + ' answered failed...\n')
+                        f.close()
+                        return check_answer
+
+                elif r.status_code == 401:
+                    f.write(self.cur_time + ip_B +
+                            ' answered failed because requests return ' +
+                            str(r.status_code) + '\n')
+                    f.close()
+                    return check_answer
+
+                else:
+                    f.write(self.cur_time + ip_B +
+                            ' answered failed because requests return ' +
+                            str(r.status_code) + '\n')
+                    f.close()
+                    return check_answer
+
+        except requests.exceptions.ConnectionError:
+            with open(self.log_file, 'a+', encoding='utf-8') as f:
+                f.write(self.cur_time + ip_B +
+                        ' connect error, please check the url: ' + url_answer +
+                        '\n')
+                f.close()
+                return check_answer
+
+    def endcall(self, ip_A, ip_B):
+
+        url_endcall = conf.Url(ip_A).url_keyboard + 'F4'
+        check_endcall = False
+
+        try:
+            r = requests.get(url_endcall, timeout=5)
+            with open(self.log_file, 'a+', encoding='utf-8') as f:
+                f.write(self.cur_time + ip_A + ' Press F4 to endcall\n')
+                if r.status_code == 200:
+                    f.write(self.cur_time + ip_A + ' requests return ' +
+                            str(r.status_code) + '\n')
+                    time.sleep(1)
+                    if self.check_status(ip_A, 'idle') and self.check_status(
+                            ip_B, 'idle'):
+                        f.write(self.cur_time + ip_A + ' The call ended...\n')
+                        f.close()
+                        check_endcall = True
+                        return check_endcall
+                    else:
+                        f.write(self.cur_time + ip_A + ' endcall failed...\n')
+                        f.close()
+                        return check_endcall
+
+                elif r.status_code == 401:
+                    f.write(self.cur_time + ip_A +
+                            ' edncall failed because requests return ' +
+                            str(r.status_code) + '\n')
+                    f.close()
+                    return check_endcall
+
+                else:
+                    f.write(self.cur_time + ip_A +
+                            ' endcall failed because requests return ' +
+                            str(r.status_code) + '\n')
+                    f.close()
+                    return check_endcall
+
+        except requests.exceptions.ConnectionError:
+            with open(self.log_file, 'a+', encoding='utf-8') as f:
+                f.write(self.cur_time + ip_A +
+                        ' connect error, please check the url: ' +
+                        url_endcall + '\n')
+                f.close()
+                return check_endcall
