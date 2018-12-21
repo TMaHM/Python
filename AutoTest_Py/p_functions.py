@@ -14,7 +14,7 @@ class PhoneFunction:
     Usage::
 
         >>> import os
-        >>> from functions import PhoneFunction
+        >>> from p_functions import PhoneFunction
         >>> ip = '10.3.2.10'
         >>> cur_exec_file = os.path.basename(__file__)
         >>> pf = PhoneFunction(cur_exec_file)

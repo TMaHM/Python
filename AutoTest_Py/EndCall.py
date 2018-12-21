@@ -1,5 +1,5 @@
 import os, time
-from functions import PhoneFunction
+from p_functions import PhoneFunction
 import configurations as conf
 import logging
 
@@ -11,7 +11,7 @@ ext_A = '3207'
 ext_B = '8724'
 
 status = 'idle'
-
+cmd = ['F4', 'SPEAKER']
 
 basename = os.path.basename(__file__)
 pf = PhoneFunction(basename, 'info')
@@ -75,3 +75,15 @@ def DUT_B(loop, edc_cmd):
             return False
     else:
         return False
+
+
+test_loops = 1
+for loop in range(test_loops):
+    for edc_cmd in cmd:
+        DUT_A(loop, edc_cmd)
+        DUT_B(loop, edc_cmd)
+        print(loop)
+        if (loop + 1) == test_loops:
+            logging.info('All --[' + str(test_loops) + ' Test Loops]-- Ended.')
+        else:
+            logging.info('The next loop --[Test Loop ' + str(loop + 1) + ']-- Start')

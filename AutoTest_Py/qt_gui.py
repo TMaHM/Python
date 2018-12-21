@@ -1,6 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
 
 
 class Example(QWidget):
@@ -11,16 +10,22 @@ class Example(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setGeometry(500, 300, 800, 500)
-        self.setWindowTitle('Icon')
-        self.setWindowIcon(QIcon('E:/Python/AutoTest_Py/Icon/title.png'))
-
+        self.setGeometry(300, 300, 300, 200)
+        self.setWindowTitle('Message Box')
         self.show()
+
+    def closeEvent(self, QCloseEvent):
+        reply = QMessageBox.question(self, 'Message', "Are you sure to quit?",
+                                     QMessageBox.Yes | QMessageBox.No,
+                                     QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            QCloseEvent.accept()
+        else:
+            QCloseEvent.ignore()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-
     ex = Example()
-
     sys.exit(app.exec_())
