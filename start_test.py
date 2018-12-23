@@ -120,11 +120,11 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "IP.B:"))
         self.label_4.setText(_translate("MainWindow", "Ext.B:"))
 
-# if __name__ == '__main__':
-#     import sys
-#     app = QtWidgets.QApplication(sys.argv)
-#     w = QtWidgets.QWidget()
-#     ui = Ui_MainWindow()
-#     ui.setupUi(w)
-#     w.show()
-#     sys.exit(app.exec_())
+if __name__ == '__main__':
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    w = QtWidgets.QWidget()
+    ui = Ui_MainWindow()
+    ui.setupUi(w)
+    w.show()
+    sys.exit(app.exec_())
