@@ -173,12 +173,10 @@ class PhoneFunction:
                         if check_entry == 'Return':
                             if cur_status[0] == '0':
                                 check_result = True
-                                log.info(ip + ' ' + status.title() + ' '
-                                                                     'status check success...')
+                                log.info(ip + ' ' + status.title() + 'status check success...')
 
                             elif cur_status[0] == '1':
-                                log.info(
-                                    ip + ' ' + status.title() + ' status check error...')
+                                log.info(ip + ' ' + status.title() + ' status check error...')
                                 log.debug(r.text)
                                 self.down_screenshot(ip, status)
                         else:
@@ -187,27 +185,21 @@ class PhoneFunction:
                                 log.debug(
                                     ip + ' ' + check_entry + ' status check success...')
                             elif cur_status[0] == '1':
-                                cur_status_disc = \
-                                    re.split(r'=', cur_status[1])[0]
-                                cur_status_code = \
-                                    re.split(r'=', cur_status[1])[1]
-                                cur_status_dir[
-                                    cur_status_disc] = cur_status_code
-                                warning_content = cur_status[
-                                                      1] + ' --> should be ' + \
-                                                  phone_status_dir[status][1][
-                                                      cur_status_disc]
+                                cur_status_disc = re.split(r'=', cur_status[1])[0]
+                                cur_status_code = re.split(r'=', cur_status[1])[1]
+                                cur_status_dir[cur_status_disc] = cur_status_code
+                                warning_content = cur_status[1] + ' --> should be ' + \
+                                                  phone_status_dir[status][1][cur_status_disc]
                                 warning_list.append(warning_content)
                     dir_match = 0
                     for key, value in phone_status_dir.items():
                         if value[1] == cur_status_dir:
                             dir_match += 1
-                            log.debug('The current status is [' + key.title()
-                                     + ']')
+                            log.debug('The current status is [' + key.title() + ']')
                     if dir_match == 0:
-                        log.info(
-                            'The current status cannot match to any status...')
+                        log.info('The current status cannot match to any status...')
                         log.info(str(cur_status_dir))
+                        # log.info('\n' + str(r.text))
                     for warning in warning_list:
                         log.info(warning)
 
@@ -234,8 +226,9 @@ class PhoneFunction:
                     f.close()
             elif r.status_code == 401:
                 log.info('Capture screen return 401, will try again.')
-                r = requests.get(url_screenshot, timemout=2)
+                r = requests.get(url_screenshot, timeout=2)
                 if r.status_code == 200:
+                    log.info('Screenshot has been captured in ' + self.log_file)
                     screenshot_time = re.sub(r':', '', QTime.currentTime().toString())
                     screenshot_named = self.log_dir_path + 'Check' + status + 'Error' + screenshot_time + '.jpg'
                     with open(screenshot_named, 'wb') as f:
