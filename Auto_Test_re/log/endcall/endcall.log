@@ -1,0 +1,16 @@
+Jan 06 19:25:10 [INFO] hello
+Jan 06 19:25:42 [INFO] hello
+Jan 06 22:02:55 [INFO] hello
+Jan 06 22:31:44 [INFO] hello
+Jan 06 22:32:32 [INFO] hello
+Jan 07 00:04:27 [INFO] http://admin:admin@10.3.2.22/Phone_ActionURL&Command=1&Number=8759&Account=1Connection Error.
+Jan 07 00:04:27 [INFO] Try to check status [idle] with http://admin:admin@10.3.2.23/AutoTest&autoverify=STATE=idle
+Jan 07 00:04:28 [INFO] Connect Error...Judge failed...
+Jan 07 00:06:21 [INFO] http://admin:admin@10.3.2.22/Phone_ActionURL&Command=1&Number=8759&Account=1Connection Error.
+Jan 07 00:06:21 [INFO] Try to check status [idle] with http://admin:admin@10.3.2.23/AutoTest&autoverify=STATE=idle
+Jan 07 00:06:22 [INFO] Connect Error...Judge failed...
+Jan 07 00:07:36 [INFO] http://admin:admin@10.3.2.22/Phone_ActionURL&Command=1&Number=8759&Account=1Connection Error.
+Jan 07 00:07:36 [INFO] Try to check status [idle] with http://admin:admin@10.3.2.23/AutoTest&autoverify=STATE=idle
+Jan 07 00:07:37 [INFO] Connect Error...Judge failed...
+Jan 07 00:07:37 [INFO] Try to judge status with http://admin:admin@10.3.2.23/AutoTest&autoverify=STATE=idle
+Jan 07 00:07:38 [INFO] Connect Error...Judge failed...

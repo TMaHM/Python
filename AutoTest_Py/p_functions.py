@@ -8,7 +8,7 @@ from PyQt5.QtCore import QTime
 import configurations as conf
 
 
-class PhoneFunction:
+class PhoneFunction():
     """
     进行实例化时，需要一个参数：cur_exec_file,即当前执行文件的文件名，由os.path.basename(__file__)提供
     Usage::

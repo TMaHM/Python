@@ -1,8 +1,5 @@
-import os
-import requests
+from p_functions import PhoneFunction
 
-
-
-url_test = 'http://user:1234@10.3.2.58/download_screen'
-r = requests.get(url_test)
-print(r.status_code)
+class A_EndCall(PhoneFunction):
+    def __init__(self, cur_exec_file, log_level, ip):
+        PhoneFunction.__init__(self,cur_exec_file,log_level)

@@ -31,4 +31,5 @@ class Url():
         self.url_check_status = self.url_gen_prefix + '/AutoTest&autoverify=STATE='
         self.url_get_memory = self.url_gen_prefix + '/AutoTest&autoverify=MEMORYFREE'
         self.url_setting = self.url_gen_prefix + '/AutoTest&setting='
-        
+
+

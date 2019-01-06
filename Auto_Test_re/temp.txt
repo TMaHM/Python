@@ -1,0 +1,53 @@
+def dial(self, ip, extension, Account='1'):
+        """采用ActionURL拨号，需要3个参数，caller IP， called Extension，caller Account(默认为Account1) \n
+        ActionURL的格式为：http://admin:admin@192.168.0.124/Phone_ActionURL&Command=1&Number=206&Account=1 \n
+        Usage::
+            >>> dial(caller_IP, called_extension)
+            >>> dial(caller_IP, called_extension, Account=2)
+        """
+        # url_speaker = conf.Url(ip).url_keyboard + 'SPEAKER'
+        if Account == '1':
+            url_dial = conf.Url(ip, number=extension).url_dial
+        elif Account:
+            url_dial = conf.Url(ip, account='&Account=' + Account,
+                                number=extension).url_dial
+
+        try:
+            # r_sp = requests.get(url_speaker, timeout=5)
+            r_dial = requests.get(url_dial, timeout=5)
+            if r_dial.status_code == 200:
+                log.info('Account' + Account + ' dial ' + extension)
+
+            elif r_dial.status_code == 401:
+                warning_content = 'Cannot dial now...Authentication Failed because requests return ' + str(
+                    r_dial.status_code)
+                log.info(warning_content)
+                log.info('Will try another pwd...')
+
+                # if Account == '1':
+                #     url_dial_again = conf.Url(ip, number=extension,
+                #                               pwd='222222').url_dial
+                # else:
+                #     url_dial_again = conf.Url(ip, account='&Account' + Account,
+                #                               number=extension).url_dial
+                # try:
+                #     r = requests.get(url_dial_again)
+                #     if r.status_code == 200:
+                #         log.info('Try pwd:222222 success...')
+                #         log.info('Account' + Account + ' dial ' + extension)
+
+                #     elif r.status_code == 401:
+                #         warning_content = 'Cannot dial now Authenticantion Failed again because requests return ' + str(
+                #             r.status_code)
+                #         log.info(warning_content)
+
+                # except requests.exceptions.ConnectionError:
+                #     log.info(
+                #         'Connect error, please check the url: ' + url_dial)
+                #         return False
+
+            else:
+                log.info('Dialing Failed with unknown reason...')
+
+        except requests.exceptions.ConnectionError:
+            log.info('Connect error, please check the url: ' + url_dial)
