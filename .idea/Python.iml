@@ -6,7 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Auto_Test_re" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Auto_Test_re_Py3.7" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Auto_Test_re_py3.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

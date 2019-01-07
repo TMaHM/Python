@@ -204,8 +204,7 @@ class PhoneFunction():
                         log.info(warning)
 
             else:
-                log.info(
-                    'Check status failed because request return ' + r.status_code)
+                log.info('Check status failed because request return ' + r.status_code)
 
         except requests.exceptions.ConnectionError:
             log.info('Connect error, please check the url: ' + url_check)
