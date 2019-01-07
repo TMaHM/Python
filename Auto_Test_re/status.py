@@ -34,10 +34,11 @@ def check_status(status, *kw):
     result = False
     pat_retrun = r'(?<=<Return>)(\d)(?=</Return>)'
     pat_status = r'([a-zA-Z]+State=.*)(?=\<)'
+    pat_ok = r'(?<=\>)(.*)(?=\<)'
     if kw:
         for ip in kw:
             url = Test_url(ip)
-            code = P_Status(status)['code']
+            code = p_status(status)
             url_check = url.check_status + code
             log.info('Try to check status [' + status + '] in ' + ip)
             try:
@@ -47,9 +48,19 @@ def check_status(status, *kw):
                     if return_code == '1':
                         log.info('Check Error, Return code 1...')
                         return_status = re.findall(pat_status, r_status.text)
-                        for key,value in
-                    log.info('Check success...')
-                    result = True
+                        match_status = p_status(return_status)
+                        log.info('The Phone is now in ' + match_status)
+                    elif return_code == '0':
+                        return_status = re.findall(pat_ok, r_status.text)
+                        if return_status == ['0', '0', '0', '0']:
+                            log.info('Check status [' + status + '] success...')
+                            result = True
+                        else:
+                            log.info('Check Error...')
+                            log.info(r_status.text)
+                    elif return_code == None:
+                        log.info('Unkown Status...')
+                        log.info(r_status.text)
                 else:
                     log.info('Return ' + str(r_status.status_code) + '. Check failed...')
 
@@ -58,22 +69,3 @@ def check_status(status, *kw):
     else:
         print('No necessary parameters: IP')
     return result
-
-
-def judge_status(status, ip):
-    url = Test_url(ip)
-    url_judge = url.check_status + status
-    log.info('Try to judge status in ' + ip)
-    try:
-        r_judge = requests.get(url_judge, timeout=1)
-        if r_judge.status_code == 200:
-            log.info(ip + ' is now in ' + status)
-            result = True
-        else:
-            log.info('Return ' + str(r_judge.status_code) + '. Judge failed...')
-
-    except requests.exceptions.ConnectionError:
-        log.info('Connect Error...Judge failed...')
-
-    return status
-

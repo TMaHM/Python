@@ -11,17 +11,7 @@ class Phone():
         self.ext = extension
         self.usr = usr
         self.pwd = pwd
-        self.url = Test_url(ip)
-    #     self.url()
-    #
-    # def url(self):
-    #     self.url_prefix = 'http://' + self.usr + ':' + self.pwd + '@' + self.ip
-    #
-    #     self.url_screenshot = self.url_prefix + '/download_screen'
-    #     self.url_keyboard = self.url_prefix + '/AutoTest&keyboard='
-    #     self.url_check_status = self.url_prefix + '/AutoTest&autoverify=STATE='
-    #     self.url_get_memory = self.url_prefix + '/AutoTest&autoverify=MEMORYFREE'
-    #     self.url_setting = self.url_prefix + '/AutoTest&setting='
+        self.url = Test_Url(self.ip, self.usr, self.pwd)
 
     def dial(self, dst_ext, account='Account=1'):
 
@@ -51,7 +41,6 @@ class Phone():
 
     def screen_shot(self):
         print(self.url.screenshot)
-
 
 
 for i in range(num_dut):
