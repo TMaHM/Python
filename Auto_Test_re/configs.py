@@ -28,16 +28,16 @@ p_list = []
 # 定义话机状态字典，用于status.py，设置idle态及check状态
 p_status_dir = \
     {
-        'idle': '0', ['FXSState=0x80', 'CallCtlState=0x60', 'LCMState=-1 ']: '[idle]',
-        'speaker': '1', ['FXSState=0x81', 'CallCtlState=0x61', 'LCMState=4 ']: '[Speaker]',
-        'outgoing': '2', ['FXSState=0x82', 'CallCtlState=0x62', 'LCMState=5 ']: '[Outgoing]',
-        'talking': '3', ['FXSState=0x82', 'CallCtlState=0x64', 'LCMState=6 ']: '[Talking]',
-        'ringing': '4', ['FXSState=0x82', 'CallCtlState=0x63', 'LCMState=3 ']: '[Ringing]',
-        'hold': '5', ['FXSState=0x82', 'CallCtlState=0x87', 'LCMState=7 ']: '[Hold]',
-        'new_initiate': '6', ['FXSState=0x82', 'CallCtlState=0x81', 'LCMState=11 ']: '[New_Init]',
-        'new_talking': '7', ['FXSState=0x82', 'CallCtlState=0x82', 'LCMState=6 ']: '[New_Talking]',
-        'conference': '8', ['FXSState=0x82', 'CallCtlState=0x88', 'LCMState=9 ']: '[Conference]',
-        'conf_hold': '9', ['FXSState=0x82', 'CallCtlState=0x8d', 'LCMState=9 ']: '[Conf_Hold]',
+        '0':'idle', '[idle]':['FXSState=0x80', 'CallCtlState=0x60', 'LCMState=-1 '],
+        '1':'speaker', '[Speaker]':['FXSState=0x81', 'CallCtlState=0x61', 'LCMState=4 '],
+        '2':'outgoing', '[Outgoing]':['FXSState=0x82', 'CallCtlState=0x62', 'LCMState=5 '],
+        '3':'talking', '[Talking]':['FXSState=0x82', 'CallCtlState=0x64', 'LCMState=6 '],
+        '4':'ringing', '[Ringing]':['FXSState=0x82', 'CallCtlState=0x63', 'LCMState=3 '],
+        '5':'hold', '[Hold]':['FXSState=0x82', 'CallCtlState=0x87', 'LCMState=7 '],
+        '6':'new_initiate', '[New_Init]':['FXSState=0x82', 'CallCtlState=0x81', 'LCMState=11 '],
+        '7':'new_talking', '[New_Talking]':['FXSState=0x82', 'CallCtlState=0x82', 'LCMState=6 '],
+        '8':'conference', '[Conference]':['FXSState=0x82', 'CallCtlState=0x88', 'LCMState=9 '],
+        '9':'conf_hold', '[Conf_Hold]':['FXSState=0x82', 'CallCtlState=0x8d', 'LCMState=9 '],
     }
 
 
@@ -111,8 +111,10 @@ def p_status(status):
         >>> status = ['FXSState=0x82', 'CallCtlState=0x8d', 'LCMState=9 ']
         >>> --> 返回对应的状态名
     """
-    if status in p_status_dir.keys():
-        return p_status_dir[status]
+    if status in p_status_dir.values():
+        for key,value in p_status_dir.items():
+            if status == value:
+                return key
     else:
         return None
 #     'check_ok': [{'code': '0'},

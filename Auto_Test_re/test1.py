@@ -1,5 +1,3 @@
-import os
+import time
 
-def ttt():
-    file = os.path.basename(__file__)
-    return file
+print(time.strftime("%m%d_%H%M%S", time.localtime()))
