@@ -11,12 +11,12 @@ def set_idle_status(*kw):
             url = Test_Url(ip)
             url_f4 = url.keyboard + 'F4'
             url_x = url.keyboard + 'X'
-            log.info('Try to set [idle] status in ' + ip)
+            # log.info('Try to set [idle] status in ' + ip)
             try:
                 r_f4 = requests.get(url_f4, timeout=1)
                 r_x = requests.get(url_x, timeout=1)
                 if r_f4 == r_x == 200:
-                    log.info(ip + ' set [idle] status success.')
+                    log.info(ip + ' set [idle] status in ' + ip + ' success.')
                     result = True
                 else:
                     log.info('Press F4 return ' + r_f4.status_code)
@@ -40,7 +40,7 @@ def check_status(status, *kw):
             url = Test_Url(ip)
             code = p_status(status)
             url_check = url.check_status + code
-            log.info('Try to check status [' + status + '] in ' + ip)
+            # log.info('Try to check status [' + status + '] in ' + ip)
             try:
                 r_status = requests.get(url_check, timeout=1)
                 if r_status.status_code == 200:
@@ -50,7 +50,10 @@ def check_status(status, *kw):
                         log.info('Check Error, Return code 1...')
                         return_status = re.findall(pat_status, r_status.text)
                         match_status = p_status(return_status)
-                        log.info('The Phone is now in ' + match_status)
+                        if match_status == None:
+                            log.info('The Phone is now ' + return_status)
+                        else:
+                            log.info('The Phone is now in ' + match_status)
                     elif return_code == ['0']:
                         return_status = re.findall(pat_ok, r_status.text)
                         print(return_status)

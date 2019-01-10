@@ -73,9 +73,9 @@ class Phone():
                 time.sleep(1)
                 if check_status('idle', self.ip):
                     check_end = True
-                    log.info(self.ip + ' The call ended.')
+                    log.info(self.ip + ' The call ended with ' + cmd)
                 else:
-                    log.info(self.ip + ' end call failed.')
+                    log.info(self.ip + ' end call failed with ' + cmd)
             else:
                 log.info(self.ip + ' Return ' + str(r_end.status_code) + ', End call failed.')
         except requests.exceptions.ConnectionError:
@@ -103,17 +103,27 @@ class Phone():
         return check_get_memory
 
 
-    def screen_shot(self):
+    def screen_shot(self, screenpath):
 
+        retry = 0
         check_screen_shot = False
+
         self.url_screen_shot = self.url.screenshot
         try:
             r_screen_shot = requests.get(self.url_screen_shot, timeout=1)
-            if r_screen_shot.status_code == 200:
-                cur_time = time.strftime("%m%d_%H%M%S", time.localtime())
-                with open(self.)
-                check_screen_shot = True
-                log.info('Capture Screenshot Success.')
+            while retry < 2:
+                if r_screen_shot.status_code == 200:
+                    cur_time = time.strftime("%m%d_%H%M%S", time.localtime())
+                    stored_screen = screenpath + cur_time
+                    with open(stored_screen, 'wb') as f:
+                        f.write(r_screen_shot.content)
+                    check_screen_shot = True
+                    log.info('Capture Screenshot Success.')
+                    break
+                elif r_screen_shot.status_code == 401:
+                    log.info('Capture Screenshot return ' + r_screen_shot.status_code + ' will try agian.')
+                    retry += 1
+                    continue
             else:
                 log.info('Capture Screenshot failed, return ' + r_screen_shot.status_code)
         except requests.exceptions.ConnectionError:
