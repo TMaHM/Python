@@ -6,7 +6,7 @@ import time
 from configs import *
 from status import *
 
-screen_dir = init_logging('info')
+screen_name = init_log('info')
 
 class Phone():
 
@@ -50,7 +50,7 @@ class Phone():
                     self.screen_shot()
                     log.info(self.ip + ' dial failed.')
             else:
-                log.info(self.ip + ' Return ' + r_dial.status_code + ', Dial Failed.')
+                log.info(self.ip + ' Return ' + str(r_dial.status_code) + ', Dial Failed.')
 
         except requests.exceptions.ConnectionError:
             log.info(self.url_dial + ' Connection Error.')
@@ -128,9 +128,9 @@ class Phone():
             if r_mem.status_code == 200:
                 check_get_memory = True
                 mem_info = re.findall(pat_untag, r_mem.text)
-                log.info(self.ip + ' Memory Info: ' + mem_info)
+                log.info(self.ip + str(mem_info))
             else:
-                log.info(self.ip + 'Get memory failed, return ' + r_mem.status_code)
+                log.info(self.ip + 'Get memory failed, return ' + str(r_mem.status_code))
         except requests.exceptions.ConnectionError:
             log.info(self.url_memory + ' Connection Error.')
 
@@ -153,18 +153,18 @@ class Phone():
                 r_screen_shot = requests.get(self.url_screen_shot, timeout=1)
                 if r_screen_shot.status_code == 200:
                     cur_time = time.strftime("%m%d_%H%M%S", time.localtime())
-                    stored_screen = ('%s_%s.jpg', screen_dir, cur_time)
+                    stored_screen = screen_name + cur_time + '.jpg'
                     with open(stored_screen, 'wb') as f:
                         f.write(r_screen_shot.content)
                         check_screen_shot = True
                         log.info('Capture Screenshot Success.')
                         break
                 elif r_screen_shot.status_code == 401:
-                    log.info('Capture Screenshot return ' + r_screen_shot.status_code + ' will try agian.')
+                    log.info('Capture Screenshot return ' + str(r_screen_shot.status_code) + ' will try agian.')
                     retry += 1
                     continue
             else:
-                log.info('Capture Screenshot failed, return ' + r_screen_shot.status_code)
+                log.info('Capture Screenshot failed, return ' + str(r_screen_shot.status_code))
         except requests.exceptions.ConnectionError:
             log.info('Connection Error. Capture Screenshot failed.')
 

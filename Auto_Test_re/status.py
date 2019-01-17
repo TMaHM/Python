@@ -47,11 +47,11 @@ def check_status(status, *kw):
                     return_code = re.findall(pat_retrun, r_status.text)
                     print(return_code)
                     if return_code == ['1']:
-                        log.info('Check Error, Return code 1...')
+                        log.info('Check [' + status + ']Error, Return code 1...')
                         return_status = re.findall(pat_status, r_status.text)
                         match_status = p_status(return_status)
                         if match_status == None:
-                            log.info('The Phone is now ' + return_status)
+                            log.info('The Phone is now ' + str(return_status))
                         else:
                             log.info('The Phone is now in ' + match_status)
                     elif return_code == ['0']:

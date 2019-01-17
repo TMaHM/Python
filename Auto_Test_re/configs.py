@@ -41,7 +41,7 @@ p_status_dir = \
     }
 
 
-def init_logging(log_level='info'):
+def init_log(cur_exec_file, log_level='info'):
     """
     在具体文件执行初始化log参数
     :param cur_exec_file: 当前执行文件名，通过文件头执行os.path.basename(__file__)获得
@@ -55,16 +55,20 @@ def init_logging(log_level='info'):
     # 当前所在目录的路径
     root_path = os.path.dirname(__file__)
     # 去除文件名后缀，用作建立当前执行文件的log存放目录
-    # cur_exec_file_nosuffix = re.split(r'\.', cur_exec_file)[0]
+    cur_exec_file_nosuffix = re.split(r'\.', cur_exec_file)[0]
     # log及截屏文件存放目录
     # log_dir_path = root_path + '\\log\\' + cur_exec_file_nosuffix + '\\'
     log_dir = root_path + '\\log\\'
+    screen_dir = log_dir + 'screenshot\\'
     # log文件绝对路径
-    # log_file = log_dir_path + cur_exec_file_nosuffix + '.log'
     log_file = log_dir + 'atlog.log'
-    screen_dir = log_dir + 'screenshot'
+    screen_file = screen_dir + cur_exec_file_nosuffix
+
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
+
+    if not os.path.exists(screen_dir):
+        os.makedirs(screen_dir)
 
     if log_level == 'debug':
         log.basicConfig(level=log.DEBUG,
@@ -78,7 +82,7 @@ def init_logging(log_level='info'):
                         datefmt='%b %d %H:%M:%S',
                         filename=log_file,
                         filemode='a')
-    return screen_dir
+    return screen_file
 
 
 class Test_Url():
