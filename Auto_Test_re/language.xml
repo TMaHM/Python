@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language name="Nederlands (Dutch)">
+    <Bluetooth>Bluetooth</Bluetooth>
+    <Wi-Fi>Wi-Fi</Wi-Fi>
+    <Scan>Scannen</Scan>
+    <Scanning>Scannen...</Scanning>
+    <ScanBluetoothDevice>Scan Bluetooth Apparaat</ScanBluetoothDevice>
+    <Refresh>Ververs</Refresh>
+    <Connecting>Verbinden</Connecting>
+    <PairedBluetoothDevice>Gekoppelde apparaten</PairedBluetoothDevice>
+    <Disconnect>Verbreken</Disconnect>
+    <WirelessNetwork>Draadloos Netwerk</WirelessNetwork>
+    <AddNetwork>Toev. Netwerk</AddNetwork>
+    <SecurityMode>Beveiligingstype</SecurityMode>
+    <ProfileName>Profiel Naam</ProfileName>
+    <SSID>SSID</SSID>
+    <CipherType>Cipher Type</CipherType>
+    <WPAShareKey>WPA Share Key</WPAShareKey>
+    <WEP>WEP</WEP>
+    <WPAPSK>WPA PSK</WPAPSK>
+    <WPA2PSK>WPA2 PSK</WPA2PSK>
+    <Strong>Sterk</Strong>
+    <High>Hoog</High>
+    <APMacAddress>AP Mac Adres</APMacAddress>
+    <SignalStrength>Signaal Sterkte</SignalStrength>
+    <EncryptionType>Versleutelings Type</EncryptionType>
+    <Frequency>Frequentie</Frequency>
+    <WiFiIP>Wi-Fi IP</WiFiIP>
+    <WirelessStatus>Draadlose Status</WirelessStatus>
+    <TheStorageNetwork>Het opslagnetwerk</TheStorageNetwork>
+    <AvailableNetworks>Beschikbare Netwerk(en)</AvailableNetworks>
+    <WPS>WPS</WPS>
+    <WPSPIN>WPS-PIN</WPSPIN>
+    <Channel>Kanaal</Channel>
+    <TransmitRate>Overdracht Snelheid</TransmitRate>
+    <WiFiSSID>Wi-Fi SSID</WiFiSSID>
+    <EditDeviceInformation>Bewerk apparaat</EditDeviceInformation>
+    <DeviceName>Apparaat Naam</DeviceName>
+    <Middle>Middel</Middle>
+    <Manual>Handmatig</Manual>
+    <Obtaining>Verkrijgen...</Obtaining>
+    <WifiPwInputLess>8 karakters min. nodig!</WifiPwInputLess>
+    <Disconnecting>Verbreken...</Disconnecting>
+    <Saving>Opslaan...</Saving>
+    <PrePage>Vor.Pagina</PrePage>                            
+    <NextPage>Volg.Pagina</NextPage>                           
+    <ParkRetrieve>ParkRetrieve</ParkRetrieve>                      
+    <SearchSetting>Zoek instelling</SearchSetting>                
+    <ListNumberSetting>Lijst Nummer Instelling</ListNumberSetting>              
+    <SearchFieldsSetting>Zoekveld Instelling</SearchFieldsSetting>              
+    <Profile>Profiel</Profile>                      
+    <Markasheard>Markeer als gehoord</Markasheard>
+    <Markallasnew>Markeer allen als nieuw</Markallasnew>   
+    <Markallasheard>Markeer allen als gehoord</Markallasheard>
+    <Unread>Ongelezen</Unread>  
+    <Read>Gelezen</Read>
+    <Playing>Afspelen</Playing>
+    <Pause>Pauze</Pause>  
+    <BargeIn>Barge In</BargeIn>                             
+    <SilenceBargeIn>Silence Barge In</SilenceBargeIn>                  
+    <Editbeforedial>Bewerk voor kiezen</Editbeforedial>                 
+    <WaitFor>Wacht voor</WaitFor>                      
+    <CallCompletionRedial>Herkies:</CallCompletionRedial>
+	<VlanWANPort>WAN Poort</VlanWANPort>                 
+    <VlanPcPort>PC Poort</VlanPcPort>     
+    <SearchTimeOut>Zoek Time Out</SearchTimeOut>	
+	<SearchMode>Zoek Mode</SearchMode>
+	<Fuzzy>Fuzzy</Fuzzy>	
+	<Filter>Filter</Filter>
+	<FontSizeContol>Font Grootte</FontSizeContol>
+	<FontSizeNormal>Normaal</FontSizeNormal>
+	<FontSizeLarge>Groot</FontSizeLarge>
+	<LDSPIndex>DSP</LDSPIndex>
+	<SmartDial>Smart Kies</SmartDial>
+	<PullCall>Pull Call</PullCall>
+	<PullCallPull>Pull</PullCallPull>
+	<ExpTest>ExpTest</ExpTest>
+	<Mode1>Mode1</Mode1>
+	<Mode2>Mode2</Mode2>
+	<ProTimeZoneOffset>offset</ProTimeZoneOffset>
+	<ProTimeZoneSecs>sec.</ProTimeZoneSecs>
+	<CallInfo>Oproep Info</CallInfo>
+	<WaitTime>Wacht Tijd</WaitTime>
+	<CCName>CC Naam</CCName>
+	<CCUID>CC UID</CCUID>
+	<Queue>Wachtrij</Queue>
+	<ExpXmlTest>ExpXml Test</ExpXmlTest>
+	<NextLinekeyPage>Volg. Pag.</NextLinekeyPage>
+	<PreLinekeyPage>Vor. Pag.</PreLinekeyPage>
+	<Back>Terug</Back>
+	<Option>Optie</Option>
+	<Send>Kiezen</Send>
+	<Enter>OK</Enter>
+	<Delete>Wis</Delete>
+	<Cancel>Annul.</Cancel>
+	<OK>OK</OK>
+	<Edit>Toevoegen</Edit>
+	<Dial>Kies</Dial>
+	<Switch>Wijzig</Switch> 
+	<Save>Opsl.</Save>
+	<Exit>Exit</Exit>
+	<None>Geen</None>
+	<Empty>Leeg</Empty>
+	<Add>Toev.</Add>
+	<Confirm>OK</Confirm>
+	<MainMenu>Hoofdmenu</MainMenu>
+	<Status>Status</Status>
+	<Features>Opties</Features>
+	<Directory>Tel.bk</Directory>
+	<History>Lijsten</History>
+	<Messages>Berichten</Messages>
+	<Setting>Instellingen</Setting>
+	<Display>Display</Display>
+	<Others>Overige</Others>
+	<IP>IP</IP>
+	<MAC>MAC</MAC>
+	<Firmware>Firmware</Firmware>
+	<More>Meer</More>
+	<Network>Netwerk</Network>
+	<Phone>Telefoon</Phone>
+	<Accounts>Accounts</Accounts>
+	<WANType>WAN Type</WANType>
+	<WANIP>WAN IP</WANIP>
+	<WANMask>WAN Mask</WANMask>
+	<LANType>LAN Type</LANType>
+	<Gateway>Gateway</Gateway>
+	<PriDNS>Pri.DNS</PriDNS>
+	<SecDNS>Sec.DNS</SecDNS>
+	<Model>Model</Model>
+	<Hardware>Hardware</Hardware>
+	<ProductID>Product ID</ProductID>
+	<CallForward>Fwd</CallForward>
+	<CallWaiting>Wachtstand</CallWaiting>
+	<FunctionKeys>Toetsen progr.</FunctionKeys>
+	<KeyasSend>Kies toets</KeyasSend>
+	<HotLine>Hot lijn</HotLine>
+	<AnonymousCall>Annonieme opr.</AnonymousCall>
+	<AutoRedial>Auto Herhaal</AutoRedial>
+	<Intercom>Interc.</Intercom>
+	<CallCompletion>Oproep voltooiing</CallCompletion>
+	<BSMenu>BroadSoft instellingen menu</BSMenu>
+	<HistorySetting>Historie Inst.</HistorySetting>
+	<AlwaysForward>Direct</AlwaysForward>
+	<BusyForward>Bij bezet</BusyForward>
+	<NoAnswerForward>Geen antwoord</NoAnswerForward>
+	<Always>Altijd</Always>
+	<Forwardto>Doorschakelen naar</Forwardto>
+	<OnCode>Aan code</OnCode>
+	<OffCode>Uit Code</OffCode>
+	<Busy>Bezet</Busy>
+	<NoAnswer>Geen antwoord</NoAnswer>
+	<AfterRingTimes>Na aantal belsignalen</AfterRingTimes>
+	<PlayTone>Play toon</PlayTone>
+	<LineKeys>Lijn toetsen</LineKeys>
+	<MemoryKeys>Geheugen toetsen</MemoryKeys>
+	<LineKey>Lijn toets-</LineKey>
+	<Type>Type</Type>
+	<Value>Waarde</Value>
+	<Label>Label</Label>
+	<AccountID>Account ID</AccountID>
+	<PickupCode>Pickup Code</PickupCode>
+	<AsSendKey># als kies toets</AsSendKey>
+	<Number>Nummer</Number>
+	<HotLineDelay>Hot lijn vertraging</HotLineDelay>
+	<LineID>Lijn ID</LineID>
+	<CallOnCode>Kies aan code</CallOnCode>
+	<CallOffCode>Kies uit code</CallOffCode>
+	<Rejection>Afwijzing</Rejection>
+	<RejectOnCode>Afwijzing aan code</RejectOnCode>
+	<RejectOffCode>Afwijzing uit code</RejectOffCode>
+	<RedialInterval>Herhaal Interval</RedialInterval>
+	<RedialTimes>Herhaal tijd</RedialTimes>
+	<DNDOnCode>Niet storen aan code</DNDOnCode>
+	<DNDOffCode>Niet storen uit code</DNDOffCode>
+	<IntercomAllow>Intercom toestaan</IntercomAllow>
+	<IntercomMute>Intercom mute</IntercomMute>
+	<IntercomTone>Intercom toon</IntercomTone>
+	<IntercomBarge>Intercom Barge</IntercomBarge>
+	<BSDirSettings>BroadSoft Dir Settings</BSDirSettings>
+	<CallLogSettings>CallLog Settings</CallLogSettings>
+	<BSItem>BroadSoft Item</BSItem>
+	<DisplayName>Display naam</DisplayName>
+	<Server>Server</Server>
+	<Port>Poort</Port>
+	<UserName>Gebruikers Naam</UserName>
+	<Password>Wachtwoord</Password>
+	<CallLogItem>Oproeplog Item</CallLogItem>
+	<HistoryRecord>Historie Record</HistoryRecord>
+	<LocalHistory>Lokale Historie</LocalHistory>
+	<NetworkCallLog>Netwerk Historie</NetworkCallLog>
+	<TextMessage>Tekst bericht</TextMessage>
+	<ViewVoiceMail>Beluister voicemail</ViewVoiceMail>
+	<SetVoiceMail>SMS</SetVoiceMail>
+	<Account>Account</Account>
+	<AccountNo>Account nr.</AccountNo>
+	<NewMessage>Nieuw bericht</NewMessage>
+	<Inbox>Inbox</Inbox>
+	<Sendbox>Sendbox</Sendbox>
+	<Outbox>Outbox</Outbox>
+	<Draftbox>Draftbox</Draftbox>
+	<BasicSetting>Basis instellingen</BasicSetting>
+	<AdvancedSetting>Extra instellingen</AdvancedSetting>
+	<Language>Taal</Language>
+	<TimeDate>Datum/Tijd</TimeDate>
+	<TimeDateFormat>Formaat</TimeDateFormat>
+	<DHCPTime>DHCP Tijd</DHCPTime>
+	<RingTone>Bel signaal</RingTone>
+	<SNTPSettings>SNTP instellen</SNTPSettings>
+	<ManualSettings>Handmatig instellen</ManualSettings>
+	<TimeZone>Tijd zone</TimeZone>
+	<DaylightSaving>Zomertijd instellen</DaylightSaving>
+	<Year>Jaar</Year>
+	<Month>Maand</Month>
+	<Day>Dag</Day>
+	<Hour>Uur</Hour>
+	<Minute>Minuut</Minute>
+	<Second>Seconde</Second>
+	<Clock>Klok</Clock>
+	<DateFormat>Datum</DateFormat>
+	<DefaultRing>Standaard belsignaal</DefaultRing>
+	<SystemRing>Belsignaal</SystemRing>
+	<Wallpaper>Achtergrond</Wallpaper>
+	<Screensaver>Screensaver</Screensaver>
+	<Theme>Thema</Theme>
+	<Backlight>Verlichting</Backlight>
+	<Timeout>Tijdsduur</Timeout>
+	<PreviewScreensaverPictures>Preview Screensaver Afbeeldingen</PreviewScreensaverPictures>
+	<ActiveLevel>Aktief Niveau</ActiveLevel>
+	<InactiveLevel>Inaktief Niveau</InactiveLevel>
+	<BacklightTime>Tijd verlichting</BacklightTime>
+	<DigitalPhotoFrame>Digitaal foto kader</DigitalPhotoFrame>
+	<FactoryFunction>Zelftest Functies</FactoryFunction>
+	<PhoneSetting>Telefoon instelling</PhoneSetting>
+	<FactoryReset>Fabrieks Reset</FactoryReset>
+	<SetPassword>Wachtwoord instellen</SetPassword>
+	<SetAESKey>Set AES Key</SetAESKey>
+	<AutoProvision>Auto Provision</AutoProvision>
+	<WANPort>WAN Poort</WANPort>
+	<PCPort>PC Poort</PCPort>
+	<VLAN>VLAN</VLAN>
+	<WebserverType>Webserver Type</WebserverType>
+	<x8021>802.1x</x8021>
+	<VPN>VPN</VPN>
+	<Contrast>Contrast</Contrast>
+	<CurrentPWD>Huidig wachtwoord</CurrentPWD>
+	<NewPWD>Nieuw wachtwoord</NewPWD>
+	<ConfirmPWD>Bevestig wachtwoord</ConfirmPWD>
+	<Common>Algemeen</Common>
+	<MACoriented>MAC gebasseerd</MACoriented>
+	<URL>URL</URL>
+	<AccountActive>Account Actief</AccountActive>
+	<SIPServer>SIP Server</SIPServer>
+	<OutboundProxy>Uitgaande Proxy</OutboundProxy>
+	<SIPUserID>SIP Gebruiker ID</SIPUserID>
+	<AuthenticateID>Authenticatie ID</AuthenticateID>
+	<Name>Naam</Name>
+	<DHCPmode>DHCP mode</DHCPmode>
+	<Staticmode>Statische mode</Staticmode>
+	<PPPoEmode>PPPoE mode</PPPoEmode>
+	<Detail>Detail</Detail>
+	<AddtoContacts>Toevoegen</AddtoContacts>
+	<AddtoBlacklist>Blokkadelijst</AddtoBlacklist>
+	<Deleteall>Wis alles</Deleteall>
+	<AllCalls>Alle opr.</AllCalls>
+	<DialedCalls>Uitgaande opr.</DialedCalls>
+	<ReceivedCalls>Ontvangen opr.</ReceivedCalls>
+	<MissedCalls>Gemiste opr.</MissedCalls>
+	<ForwardedCalls>Doorgest. opr.</ForwardedCalls>
+	<AllContacts>Alle contacten</AllContacts>
+	<LocalContacts>Lokale contacten</LocalContacts>
+	<RemoteContacts>Remote contacten</RemoteContacts>
+	<LDAPContacts>LDAP Contacten</LDAPContacts>
+	<BroadSoftContact>BroadSoft Contact</BroadSoftContact>
+	<BlackListContacts>Blokkadelijst</BlackListContacts>
+	<On>Aan</On>
+	<Off>Uit</Off>
+	<Pool>Pool</Pool>
+	<Auto>Auto</Auto>
+	<Line>Lijn</Line>
+	<Enable>Ingeschakeld</Enable>
+	<Disable>Uitgeschakeld</Disable>
+	<Automatic>Automatisch</Automatic>
+	<YMDHMS>j-M-D U:M:S</YMDHMS>
+	<MDYHMS>M-D-J U:M:S</MDYHMS>
+	<DMYHMS>D-M-J U:M:S</DMYHMS>
+	<Hour12>12 Uur</Hour12>
+	<Hour24>24 Uur</Hour24>
+	<Netmask>Netmask</Netmask>
+	<UserID>Gebruikers ID</UserID>
+	<Bridgemode>Bridge mode</Bridgemode>
+	<Routermode>Router mode</Routermode>
+	<DHCPServer>DHCP Server</DHCPServer>
+	<ServerStatus>Server Status</ServerStatus>
+	<StartIP>Start IP</StartIP>
+	<EndIP>Eind IP</EndIP>
+	<VLANStatus>VLAN Status</VLANStatus>
+	<VIDNumber>VID Nummer</VIDNumber>
+	<Priority>Prioriteit</Priority>
+	<HTTPOnly>Alleen HTTP</HTTPOnly>
+	<HTTPSOnly>Alleen HTTPS</HTTPSOnly>
+	<x8021Mode>802.1x Mode</x8021Mode>
+	<Identity>Identiteit</Identity>
+	<MD5Password>MD5 Wachtwoord</MD5Password>
+	<VPNActive>VPN Actief</VPNActive>
+	<KeypadLock>Toetsenbord geblokkeerd</KeypadLock>
+	<MenuKey>Menu toets</MenuKey>
+	<FunctionKey>Functie toets</FunctionKey>
+	<Allkeys>Alle toetsen</Allkeys>
+	<UC860>UC860</UC860> 
+	<V100>V1.0.0</V100>
+	<NotRegistered>Niet geregistreerd</NotRegistered>
+	<Registering>Registeren</Registering>
+	<Registered>Geregistreerd</Registered>
+	<BroadSoft>BroadSoft</BroadSoft>
+	<CallLog>Opr. lijst</CallLog>
+	<Select>Selecteer</Select>
+	<EditContacts>Bewerk contacten</EditContacts>
+	<WARNING>WAARSCHUWING</WARNING>
+	<MobileNumber>Mobiel nummer</MobileNumber>
+	<OtherNumber>Ander nummer</OtherNumber>
+	<Group>Groep</Group>
+	<Photo>Foto</Photo>
+	<AddContacts>Toevoegen contact</AddContacts>
+	<SelectPhoto>Selecteer foto</SelectPhoto>
+	<StartTime>Start Tijd</StartTime>
+	<Duration>Duur</Duration>
+	<oldmessages>oude berichten</oldmessages>
+	<newurgentmessages>nieuwe belangrijke berichten</newurgentmessages>
+	<oldurgentmessages>oude belangrijke berichten</oldurgentmessages>
+	<new>nieuw</new>
+	<old>oud</old>
+	<newurgent>nieuw belangrijk</newurgent>
+	<oldurgent>oud belangrijk</oldurgent>
+	<picture>foto</picture>
+	<AudioLoopback>Audio Loopback</AudioLoopback>
+	<DiagnosticMode>Diagnostic Mode</DiagnosticMode>
+	<Down>Beneden</Down>
+	<Up>Omhoog</Up>
+	<Right>Rechts</Right>
+	<Left>Links</Left>
+	<Softkey>Functie toets</Softkey>
+	<Hold>Wacht</Hold>
+	<Conference>Conf.</Conference>
+	<Speak>Speak</Speak>
+	<VolumeUp>Volume +</VolumeUp>
+	<VolumeDown>Volume -</VolumeDown>
+	<Information>Informatie</Information>
+	<Transfer>Door.</Transfer>
+	<Mute>Mute</Mute>
+	<Headset>Headset</Headset>
+	<MemoryKey>Geheugen toets</MemoryKey>
+	<Play>Play</Play>
+	<SpeedDial>Verkort kiezen</SpeedDial>
+	<BLF>BLF</BLF>
+	<BLFLIST>BLFLIST</BLFLIST>
+	<VoiceMail>VoiceMail</VoiceMail>
+	<PickUP>PickUP</PickUP>
+	<GroupP>Gr.Pick</GroupP>
+	<CallPark>Opr. Parkeren</CallPark>
+	<DTMF>DTMF</DTMF>
+	<Prefix>Prefix</Prefix>
+	<LocalGroup>Lok.Gr.</LocalGroup>
+	<XMLGroup>XML Gr.</XMLGroup>
+	<XMLBrowser>XMLBrowser</XMLBrowser>
+	<LDAP>LDAP</LDAP>
+	<Forward>Fwd</Forward>
+	<DND>DND</DND>
+	<Redial>Herhaal</Redial>
+	<CallReturn>Terugb.</CallReturn>
+	<SMS>SMS</SMS>
+	<Record>Record</Record>
+	<URLRecord>URLRecord</URLRecord>
+	<Paging>Paging</Paging>
+	<GroupLis>Groep Listening</GroupLis>
+	<PublicHold>PublicHold</PublicHold>
+	<PrivateHold>PrivateHold</PrivateHold>
+	<ShareLine>ShareLine</ShareLine>
+	<HotDesking>HotDesking</HotDesking>
+	<ACD>ACD</ACD>
+	<ZeroTouch>ZeroTouch</ZeroTouch>
+	<Speed>Snelheid</Speed>
+	<BSGroup>BS Grp.</BSGroup>
+	<Menu>Menu</Menu>
+	<NewSMS>Nw. SMS</NewSMS>
+	<SwitchUp>Vor. Account</SwitchUp>
+	<SwitchDow>Vol. Account</SwitchDow>
+	<LocalDIR>Lok.BK</LocalDIR>
+	<BSDIR>BS Boek</BSDIR>
+	<XMLDIR>XML.BK</XMLDIR>
+	<unknown>onbekend</unknown>
+	<Code>Code</Code>
+	<Transfering>Overdracht</Transfering>
+	<NetworkDown>Geen netwerk beschikbaar</NetworkDown>
+	<OnHookDial>Handenvrij kiezen</OnHookDial>
+	<OffHook>Off Hook</OffHook>
+	<Talking>Spreken</Talking>
+	<Youhave>Je hebt</Youhave>
+	<TransferedCalls>Doorgeschakelde oproep</TransferedCalls>
+	<CallSwitch>Oproep Switch</CallSwitch>
+	<LineSelection>Lijn selectie</LineSelection>
+	<NewCall>Nieuw</NewCall>
+	<Answer>Antw.</Answer>
+	<Reject>Afwijz.</Reject>
+	<Silence>Stil</Silence>
+	<SWAP>Wissel</SWAP>
+	<Resume>Hervat</Resume>
+	<Split>Splits.</Split>
+	<Search>Zoeken</Search>
+	<English>Engels</English>
+	<QVLANTag>VLAN Tag</QVLANTag>
+	<ppriorityvalue>Prioriteit</ppriorityvalue>
+	<DataVLANTag>VLAN Tag</DataVLANTag>
+	<QosSet>VLAN/QoS Instellingen</QosSet>
+	<SystemRestart>Systeem herstart</SystemRestart>
+	<_123>123</_123>
+	<Null></Null>
+	<FilterPrefix>Filter Voorvgsl.</FilterPrefix>
+	<EditGroup>Bewerk groep</EditGroup>
+	<Contacts>Contacten</Contacts>
+	<NoMessages>Geen berichten</NoMessages>
+	<min>min</min>
+	<ScreensaverType>Achtergrond</ScreensaverType>
+	<BacklightOff>Verlichting uit</BacklightOff>
+	<PhotoSwitch>Foto Switch</PhotoSwitch>
+	<FirmwareUpgrade>Firmware Upgrade</FirmwareUpgrade>
+	<UpgradeMode>Upgrade Mode</UpgradeMode>
+	<FirmwareServer>Firmware Server</FirmwareServer>
+	<ConfigServer>Config Server</ConfigServer>
+	<TFTP>TFTP</TFTP>
+	<HTTP>HTTP</HTTP>
+	<DeviceReboot>Herstart toestel</DeviceReboot>
+	<PcapFeature>Pcap Trace</PcapFeature>
+	<Start>Start</Start>
+	<Stop>Stop</Stop>
+	<Perform>Uitvoeren</Perform>
+	<NOTE>Noot</NOTE>
+	<FailoverSIPServer>Failover SIP Server</FailoverSIPServer>
+	<KeypadlockedPIN>Toetsenbord geblokkeerd PIN</KeypadlockedPIN>
+	<EmergencyCall>Noodoproep</EmergencyCall>
+	<DPickup>DPickup</DPickup>
+	<GPickup>GPickup</GPickup>
+	<KeypadTest>Toetsenord test</KeypadTest>
+	<Transferto..>Naar</Transferto..>
+	<Holding>In wacht</Holding>
+	<INFO>INFO</INFO>
+	<TransferedCall>Doorgeschak. oproep</TransferedCall>
+	<MissedCall>Gemiste oproep</MissedCall>
+	<Product>Product</Product>
+	<ViewSMS>Beluisteren</ViewSMS>
+	<SetSMS>SMS instellen</SetSMS>
+	<DisplayMode>Mode</DisplayMode>
+	<Icon>Icoon</Icon>
+	<Text>Tekst</Text>
+	<Reply>Antwoord</Reply>
+	<View>Bekijk</View>
+	<NA>N/A</NA>
+	<FontSize>Font Grootte</FontSize>
+	<pixels>pixels</pixels>
+	<Test>Test</Test>
+	<TestKeys>Test toetsen</TestKeys>
+	<LogoOnly>Alleen logo</LogoOnly>
+	<APContacts>AP Contacten</APContacts>
+	<lastName>Achternaam</lastName>
+    <firstName>Voornaam</firstName>
+    <userId>userID</userId>
+    <groupId>groepId</groupId>
+    <extension>extensie</extension>
+    <mobile>mobiel</mobile>"
+    <yahooId>yahooId</yahooId>
+    <pager>pager</pager>
+    <emailAddress>email adres</emailAddress>
+    <title>titel</title>
+    <location>locatie</location>
+    <addressLine>adreslijn</addressLine>
+    <city>Plaats</city>
+    <state>Provincie</state>
+    <zip>Postcode</zip>
+    <country>Land</country>
+    <department>Afdeling</department>
+	<countryCode>Landen code</countryCode>
+	<ExpM>Uitbreidings module</ExpM>
+	<DHCPVlan>DHCP VLAN</DHCPVlan>
+	<Preview>Voorbeeld</Preview>
+	<ResourceVersion>Bron versie</ResourceVersion>
+	<FTP>FTP</FTP>
+    <HTTPS>HTTPS</HTTPS>
+    <MuticastPaging>Multicast Paging</MuticastPaging>
+    <Connect>Connect</Connect>
+	<Module>Module</Module>
+    <Unconnected>Niet verbonden</Unconnected>
+    <Connected>Verbonden</Connected>
+    <ConnToModule>Verb. met module</ConnToModule>
+	<IncomingCall>Inkomende oproep</IncomingCall>
+    <MenuAutoTest>Menu autotest</MenuAutoTest>
+    <Quick>Snel</Quick>
+	<Slow>Langzaam</Slow>
+	<FactoryInstalled>Fabriek Geinstalleerd</FactoryInstalled>
+	<NotInstalled>Niet geinstalleerd</NotInstalled>
+	<DeviceCert>Apparaat Cert.</DeviceCert>
+    <From>Van</From>
+    <To>Naar</To>
+    <SendMessage>Verstuur bericht</SendMessage>
+	<Checkfirmware>Controleer firmware</Checkfirmware>
+	<Pleasewait>Even geduld aub</Pleasewait>
+	<Initializing>Initialiseren</Initializing>
+	<Next>Volgende</Next>
+	<Low>Laag</Low>
+	<BLInactiveLevel>Verlichting in rust</BLInactiveLevel>
+	<BLActiveLevel>Niveau</BLActiveLevel>
+	<UserMode>Gebruikers Mode</UserMode>
+	<UserType>Gebruikers Type</UserType>
+	<var>var</var>
+	<user>gebruiker</user>
+	<admin>admin</admin>
+    <Login>Login</Login>
+    <Logout>Loguit</Logout>
+    <Available>Beschikbaar</Available>
+    <Unavailable>Niet beschik.</Unavailable>
+    <EnterCode>Voer code in</EnterCode>
+    <UnavailReasonCode>Niet besch. reden code</UnavailReasonCode>
+    <SignIn>Aanmelden</SignIn>
+    <SignOut>Afmelden</SignOut>
+    <WrapUp>Wrap Up</WrapUp>
+    <ACDState>ACD Status</ACDState>
+    <DispCode>Disp Code</DispCode>
+    <Trace>Trace</Trace>
+    <DispositionCode>Layout Code</DispositionCode>
+    <Emergency>Noodgeval</Emergency>
+    <EmergencyEscalation>Escalatie noodgeval</EmergencyEscalation>
+    <Park>Park</Park>
+    <Retrieve>Uitparkeren</Retrieve>
+    <AutoLogin>Auto Login</AutoLogin>
+    <UpdateEHS>Update EHS</UpdateEHS>
+    <Restart>Restart</Restart>
+    <IPConflict>IP Conflict</IPConflict>
+    <Reboot>Reboot</Reboot>
+    <CallControl>Oproep Controle</CallControl>
+    <Anywhere>Anywhere</Anywhere>
+    <RemoteOffice>Remote Office</RemoteOffice>
+    <HideNumber>Onderdruk Nummer</HideNumber>
+    <AnonyRejection>Anonymous Rejection</AnonyRejection>
+    <SimRingPersonal>Simultaneous Ring Personal</SimRingPersonal>
+    <Locations>Locaties</Locations>
+    <EditLocations>Bewerk Locaties</EditLocations>
+    <PhoneNumber>Telefoonnummer</PhoneNumber>
+    <EnableLocation>Enable Location</EnableLocation>
+    <OutboundAlternateNum>Uitgaand alternatief nummer</OutboundAlternateNum>
+    <EnableDiversionInhibitorCall>Enable Diversion Inhibitor Call</EnableDiversionInhibitorCall>
+    <AnswerConfirmation>Bevestig beantwoorden</AnswerConfirmation>
+    <BroadworksCallControl>BS Oproepcontrole</BroadworksCallControl>
+    <Enterprise>Enterprise</Enterprise>
+    <GroupCommon>Group Common</GroupCommon>
+    <EnterpriseCommon>Enterprise Common</EnterpriseCommon>
+    <Personal>Personeel</Personal>
+    <CustomContact>Aangepast Contact</CustomContact>
+    <Update>Update</Update>
+    <PlacedCalls>Geplaatste oproepen</PlacedCalls>
+    <callLogId>callLogId</callLogId>
+    <LLDP>LLDP</LLDP>
+    <Active>Aktief</Active>
+    <PackedInterval>Packed Interval</PackedInterval>
+    <Versiononphone>Versie op toestel</Versiononphone>
+    <Callback>Terugbellen</Callback>
+    <HeadSetPriority>Headset prioriteit</HeadSetPriority>
+    <UseSpeaker>Via Luidspreker</UseSpeaker>
+    <UseHeadSet>Via headset</UseHeadSet>
+    <RingerDeviceForHeadSet>Bel opr. voor headset</RingerDeviceForHeadSet>
+    <EHSVersion>EHS Versie</EHSVersion>
+    <IPPortMode>IP Poort mode</IPPortMode>
+    <IPV4>IPV4</IPV4>
+    <IPV6>IPV6</IPV6>
+    <IPV6Prefix>IPV6 Voorvoegsel</IPV6Prefix>
+    <EAPTLS>EAP-TLS</EAPTLS>
+    <EAPMD5>EAP-MD5</EAPMD5>
+    <GrayLevel>Grijs niveau</GrayLevel>
+    <Ignore>Negeer</Ignore>
+    <WANHTTPAccess>WAN HTTP Toegang</WANHTTPAccess>
+    <FromName>Van Naam</FromName>
+    <FromNumber>Van Nummer</FromNumber>
+	<Function>Toetsen</Function>
+    <Memory>Memory</Memory>
+	<PoundSend>Kiezen</PoundSend>
+	<Anonymous>Anonniem</Anonymous>
+	<All>Alle</All>
+	<Remote>Remote</Remote>
+	<Provision>Provision</Provision>
+	<Local>Lokaal</Local>
+	<Missed>Gemist</Missed>
+	<Received>Ontvangen</Received>
+	<Dialed>Gekozen</Dialed>
+	<Set>Instellingen</Set>
+	<Basic>Basis</Basic>
+	<Advanced>Extra</Advanced>
+	<Format>Formaat</Format>
+	<AP>AP</AP>
+	<Mode>Mode</Mode>
+	<Factory>Zelftest</Factory>
+	<Pcap>Pcap</Pcap>
+	<Webserver>Webserver</Webserver>
+	<Reset>Reset</Reset>
+	<LcdColor>Lcd kleur</LcdColor>
+	<Buddies>Buddies</Buddies>
+	<Favorite>Favorieten</Favorite>
+	<WorkPhone>Werk Nummer</WorkPhone>
+	<MyStatus>Mijn status</MyStatus>
+	<Away>Weg</Away>
+	<Offline>Off lijn</Offline>
+	<SpecialVoiceTest>Luidspreker Test</SpecialVoiceTest>
+	<Lock>Vergrendel</Lock>
+	<PauseREC>Pauze Opn.</PauseREC>
+	<ResumeREC>Hervat Opn.</ResumeREC>
+	<StartREC>Start Opn.</StartREC>
+	<StopREC>Stop Opn.</StopREC>
+	<UnLcok>Ontgrendel</UnLcok>
+	<Security>Beveiliging</Security>
+	<EXP>Uitbr. module</EXP>
+	<SpeakerHeadset>Luidspreker Headset</SpeakerHeadset>
+	<VoiceQos>Voice QoS</VoiceQos>
+	<SIPQos>SIP QoS</SIPQos>
+	<FactoryGrayLevel>Fabrieksinst. Grijs Niveau</FactoryGrayLevel>
+	<Addalltocontact>Alles toevoegen aan contact</Addalltocontact>
+	<newmessages>nieuwe berichten</newmessages>
+	<PleaseSelect>selecteer aub</PleaseSelect>
+	<GroupPark>Groep Park</GroupPark>
+	<RingSplash>Ring Splash</RingSplash>
+    <EndCall>Eind.op.</EndCall>
+	<DPark>D.Park</DPark>
+	<GPark>Gr.Park</GPark>
+	<Parkto>Park. naar</Parkto>
+	<ProvisionCode>Provisioning Code</ProvisionCode>
+	<UnlockCode>Ontgrendel Code</UnlockCode>
+	<UseHost>Gebruik Host</UseHost>
+	<DeleteRecord>Weet je zeker dat je dit item wilt wissen?</DeleteRecord>
+	<NameEmpty>Naam mag niet leeg zijn!</NameEmpty>
+	<NameOnlySpace>Naam mag niet alleen uit spaties bestaan!</NameOnlySpace>
+	<InvalChar>Ongeldig teken in naam!</InvalChar>
+	<PassError>Verkeerd wachtwoord !</PassError>
+	<ResetFact>Waarschuwing: terugzetten naar fabrieksinstellingen?</ResetFact>
+	<CPassError>Het huidige wachtwoord is fout!</CPassError>
+	<PassNotMatch>De tweemaal ingevoerde wachtwoorden komen niet overeen!</PassNotMatch>
+	<DNDMode>DND Mode</DNDMode>
+	<HeadSetMode>Headset mode!</HeadSetMode>
+	<CheckNetwork>Netwerk niet beschikbaar</CheckNetwork>
+	<HaveNewMsg>Je hebt een nieuw SMS bericht!</HaveNewMsg>
+	<keypadLock>toetsenbord is geblokkeerd!</keypadLock>
+	<VolumeNull>Volume is nul!</VolumeNull>
+	<SysRestart>Systeem zal opnieuw opstarten, weet je het zeker?</SysRestart>
+	<GroupNumMax>Sorry, aantal tot maximum bereikt!</GroupNumMax>
+	<MoveToBL>Verplaats voorwerp naar blacklist, weet je het zeker?</MoveToBL>
+	<MoveToLD>Verplaats Item naar contacten, weet je het zeker?</MoveToLD>
+	<GroupExist>Groep bestaat al!</GroupExist>
+	<SysReboot>Systeem herstart, Weet je het zeker?</SysReboot>
+	<VPNError>Controleer uw VPN Configuratie-bestanden!</VPNError>
+	<PCapNote>Start de applicatie...</PCapNote>
+	<PCaping>Starten Capture...</PCaping>
+	<RPBOpen>Laden remote telefoonboek fout!</RPBOpen>
+	<LdapError>Kan LDAP contacten niet laden!</LdapError>
+	<IconLoadError>Kan Icon bestand niet laden</IconLoadError>
+	<ConnectLdapServer>Verbinden met LDAP Server...</ConnectLdapServer>
+	<LanguageError>Kan xml-bestand niet laden!</LanguageError>
+	<BSOpen>Laden van Broadsoft telefoonboek gaat fout!</BSOpen>
+	<UnifontError>Unifont.ttf fout, aub controleren!</UnifontError>
+	<DeleteMsg>Dit bericht wilt verwijderen?</DeleteMsg>
+	<SaveCfg>Opslaan van configuratie bestand!</SaveCfg>
+	<NotExist>Bestaat niet!</NotExist>
+	<LoadWait>Laden, even geduld aub...</LoadWait>
+	<ExpMConnect>Uitbreidingsmodule succes aangesloten!</ExpMConnect>
+	<ExpMUNConnect>Uitbreidingsmodule verbinding is mislukt!</ExpMUNConnect>
+	<APItemModify>Deze ingave kan niet worden gewijzigd of verwijderd!</APItemModify>
+	<KeywordEmpty>De ingave kan niet leeg zijn!</KeywordEmpty>
+	<InvalidAccount>Ongeldig Account !</InvalidAccount>
+	<ContactSyn>Contact wordt gesynchroniseerd!</ContactSyn>
+	<ClearAccount>Wis alle andere account configuratie?</ClearAccount>
+	<UpdateNow>Update nu?</UpdateNow>
+	<InsertExpansion>Gelieve uitbreidingsmodule te plaatsen!</InsertExpansion>
+	<ReinsertExpand>Gelieve uitbreidingsmodule opnieuw te plaatsen!</ReinsertExpand>
+	<BeginUpdate>update starten!</BeginUpdate>
+	<EHSVersion>EHS versie</EHSVersion>
+    <PressStart>Druk vervolgens op de Start-knop</PressStart>
+    <Updating>Wacht vervolgens op de update...</Updating>
+    <SerialPortError>Serieele poort fout, controleer poort!</SerialPortError>
+    <UpdateFileError>EHS bestandsfout, controleer bestand!</UpdateFileError>
+    <UpdateError>Fout bij bijwerken, maak opnieuw verbinding!</UpdateError>
+    <CheckVersion>Controleer versie.</CheckVersion>
+    <ScanningFailed>Scan mislukt!</ScanningFailed>
+    <ConnectFailed>Verbinding mislukt!</ConnectFailed>                    
+    <ConnectSuccess>Verbinding Succes!</ConnectSuccess>                  
+    <BTStartSuccess>Bluetooth start success!</BTStartSuccess>                   
+    <BTStartFailed>Bluetooth start mislukt!</BTStartFailed>                     
+    <WPSOpenNote>WPS is geopend, meld u hier aan</WPSOpenNote>                        
+    <WPSPINNote>Voer hieronder de pincode in op uw wifi-router en druk op ok om verbinding te maken:</WPSPINNote>                       
+    <BTDisconnected>Bluetooth verbroken!</BTDisconnected>                      
+    <WifiDisconnected>Wifi verbroken</WifiDisconnected> 
+	<SaveFailed>Fout bij opslaan, aub controleren!</SaveFailed>
+    <SendSuccess>Bericht succesvol verzonden!</SendSuccess>
+    <SendFail>Verzenden mislukt</SendFail>
+	<CheckFirmware>Controleer Firmware, even geduld aub...</CheckFirmware>
+	<GuestInOK>Gast In OK</GuestInOK>
+	<GuestOutOK>Gast Uit OK</GuestOutOK>
+	<GuestinFaild>Gast In Fout</GuestinFaild>
+	<GuestOutFaild>Gast Uit Fout</GuestOutFaild>
+	<FailedResume>Hervat Fout</FailedResume>
+	<FailedStart>Start Fout</FailedStart>
+	<FailedStop>Stop Fout</FailedStop>
+	<TargetEmpty>Doel is leeg</TargetEmpty>
+	<DpickupFail>Dir.Pickup Fout</DpickupFail>
+	<GpickupFail>Grp.Pickup Fout</GpickupFail>
+	<DparkFail>Dir.park Fout</DparkFail>
+	<GparkFail>Grp.park Fout</GparkFail>
+	<APError>AP Fout</APError>
+	<UnlockCodeerror>Ontgrendel Code Fout</UnlockCodeerror>
+	<ProvideAP>Provider AP</ProvideAP>
+	<Invitenoresponse>Invite geen reactie!</Invitenoresponse>
+	<UpgradeFirmware>Update van de firmware, wachten aub...</UpgradeFirmware>
+	<AccountOrPwEmpty>Account of wachtwoord is leeg!</AccountOrPwEmpty>
+	<LRestartingPlsWait>Herstarten, wachten aub...</LRestartingPlsWait>
+	<LRebootingPlsWait>Rebooting, wachten aub...</LRebootingPlsWait>
+	<LCheckFirmwareOk>Controle firmware OK</LCheckFirmwareOk>
+	<LProvisionOk>Provisioning OK</LProvisionOk>
+	<LProvisionFailed>Provisioning fout!</LProvisionFailed>
+	<LProcessingWait>Verwerken, wachten aub...</LProcessingWait>
+</language>

@@ -1,20 +1,23 @@
 import requests
 
-ip1 = '192.168.22.5'
-ip2 = '192.168.22.7'
+ip1 = '10.3.3.52'
+ip2 = '10.3.3.52'
 ip3 = '192.168.22.8'
-ip4 = '192.168.22.237'
-ip5 = '192.168.22.231'
-ip6 = '192.168.22.27'
+ip4 = '192.168.22.231'
+ip5 = '192.168.22.234'
+ip6 = '192.168.22.237'
 ip7 = '192.168.22.33'
 ip8 = '192.168.22.234'
 
-ip_list = [ip1, ip2, ip3, ip4, ip5, ip6, ip7, ip8]
+ip_list = [ip1, ip2, ip3, ip4, ip5, ip6,]
+num = input('Enter the number need to be upgrade: ')
+
+upgrade_ip = ip_list[:num]
 
 fw_path = input('Please enter the fw_path: ')
 
 with open(r'F:\Project\AutoTestTools\Auto_Test_re\log\upgrade.log', 'a+', encoding='utf-8') as f:
-    for ip in ip_list:
+    for ip in upgrade_ip:
         url_gen = 'http://admin:admin@' + ip + '/AutoTest&setting='
         url_pnp = url_gen+ 'P20165=0'  # disable pnp
         url_up_mode = url_gen + 'P212=1'  # set upgrade mode as http
