@@ -66,7 +66,7 @@ class Phone():
         """
 
         check_answer = False
-        self.url_answer = self.url.keyboard + cmd
+        self.url_answer = self.url.keyboard + cmd.upper()
         try:
             r_answer = requests.get(self.url_answer, timeout=1)
             if r_answer.status_code == 200:
@@ -86,6 +86,67 @@ class Phone():
 
         return check_answer
 
+    def set_key(self, key, type, value, account='Account1'):
+
+        key = key.upper()
+        type = type.upper()
+        value = value.upper()
+        account = account.upper()
+        type_Pcode = dss_key_dir[key]['type']
+        type_Pvalue = dss_key_dir[type]
+        value_Pcode = dss_key_dir[key]['value']
+        account_Pcode = dss_key_dir[key]['account']
+        account_Pvalue = dss_key_dir[account]
+
+        self.url_set_key_type = self.url.setting + type_Pcode + '=' + type_Pvalue
+        self.url_set_key_value = self.url.setting + value_Pcode + '=' + value
+        self.url_set_key_account = self.url.setting + account_Pcode + '=' + account_Pvalue
+
+        try:
+            r_key_type = requests.get(self.url_set_key_type, timeout=1)
+            r_key_value = requests.get(self.url_set_key_value, timeout=1)
+            r_key_account = requests.get(self.url_set_key_account, timeout=1)
+            if (r_key_type.status_code and r_key_value.status_code and r_key_account.status_code) == 200:
+                log.info(self.ip + ' set ' + key + ' as ' + type + ' success.')
+            else:
+                log.info(self.ip + ' set ' + key + ' as ' + type + ' failed...')
+                log.info('check url:\n' + self.url_set_key_type + '\n' + self.url_set_key_value + '\n' + self.url_set_key_account)
+
+        except requests.exceptions.ConnectionError:
+            log.info(self.ip + ' connection error.')
+
+
+    def press_key(self, cmd):
+        self.url_press_key = self.url.keyboard + cmd.upper()
+        try:
+            r_pr = requests.get(self.url_press_key, timeout=1)
+            if r_pr.status_code == 200:
+                time.sleep(1)
+                log.info(self.ip + ' press ' + cmd)
+            else:
+                log.info(self.ip + ' press ' + cmd + ' failed...')
+
+        except requests.exceptions.ConnectionError:
+            log.info(self.url_end + ' Connection Error.')
+
+    def exp_blf(self, cmd):
+        for k,v in exp_blf_dir.items():
+            if cmd.upper() == k:
+                self.url_exp_key = self.url.keyboard + v
+                try:
+                    r_exp_key = requests.get(self.url_exp_key, timeout=1)
+                    if r_exp_key.status_code == 200:
+                        time.sleep(1)
+                        log.info(self.ip + ' trigger Expansion ' + cmd)
+                        return True
+                    else:
+                        log.info(self.ip + ' trigger Expansion' + cmd + 'failed...')
+
+                except requests.exceptions.ConnectionError:
+                    log.info(self.url_exp_key + ' Connection Error.')
+            else:
+                log.info("cmd " + cmd + "error, please check...")
+                return False
 
     def end_call(self, cmd):
         """
@@ -157,14 +218,14 @@ class Phone():
                     with open(stored_screen, 'wb') as f:
                         f.write(r_screen_shot.content)
                         check_screen_shot = True
-                        log.info('Capture Screenshot Success.')
+                        log.info('Capture Screenshot Success: ' + stored_screen)
                         break
                 elif r_screen_shot.status_code == 401:
                     log.info('Capture Screenshot return ' + str(r_screen_shot.status_code) + ' will try agian.')
                     retry += 1
                     continue
             else:
-                log.info('Capture Screenshot failed, return ' + str(r_screen_shot.status_code))
+                log.info('Capture Screenshot failed.')
         except requests.exceptions.ConnectionError:
             log.info('Connection Error. Capture Screenshot failed.')
 

@@ -40,6 +40,19 @@ p_status_dir = \
         '9':'conf_hold', '[Conf_Hold]':['FXSState=0x82', 'CallCtlState=0x8d', 'LCMState=9 '],
     }
 
+exp_blf_dir = \
+    {
+        'L1':'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:0',
+        'L2':'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:1',
+        'L3':'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:2',
+    }
+
+dss_key_dir = \
+    {
+        'L1':{'type':'P41200', 'value':'P41300', 'account':'P41500'},
+        'L2':{'type':'P41201', 'value':'P41301', 'account':'P41501'},
+        'BLF':'3', 'ACCOUNT1':'0'
+    }
 
 def init_log(cur_exec_file, log_level='info'):
     """
@@ -124,6 +137,4 @@ def p_status(status):
                 return key
     else:
         return None
-#     'check_ok': [{'code': '0'},
-#                  {'FXS': '0', 'CallCtl': '0', 'LCM': '0'}],
-# }
+
