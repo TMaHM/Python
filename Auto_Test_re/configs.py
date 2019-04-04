@@ -28,31 +28,41 @@ p_list = []
 # 定义话机状态字典，用于status.py，设置idle态及check状态
 p_status_dir = \
     {
-        '0':'idle', '[idle]':['FXSState=0x80', 'CallCtlState=0x60', 'LCMState=-1 '],
-        '1':'speaker', '[Speaker]':['FXSState=0x81', 'CallCtlState=0x61', 'LCMState=4 '],
-        '2':'outgoing', '[Outgoing]':['FXSState=0x82', 'CallCtlState=0x62', 'LCMState=5 '],
-        '3':'talking', '[Talking]':['FXSState=0x82', 'CallCtlState=0x64', 'LCMState=6 '],
-        '4':'ringing', '[Ringing]':['FXSState=0x82', 'CallCtlState=0x63', 'LCMState=3 '],
-        '5':'hold', '[Hold]':['FXSState=0x82', 'CallCtlState=0x87', 'LCMState=7 '],
-        '6':'new_initiate', '[New_Init]':['FXSState=0x82', 'CallCtlState=0x81', 'LCMState=11 '],
-        '7':'new_talking', '[New_Talking]':['FXSState=0x82', 'CallCtlState=0x82', 'LCMState=6 '],
-        '8':'conference', '[Conference]':['FXSState=0x82', 'CallCtlState=0x88', 'LCMState=9 '],
-        '9':'conf_hold', '[Conf_Hold]':['FXSState=0x82', 'CallCtlState=0x8d', 'LCMState=9 '],
+        '0': 'idle', '[idle]': ['FXSState=0x80', 'CallCtlState=0x60', 'LCMState=-1 '],
+        '1': 'speaker', '[Speaker]': ['FXSState=0x81', 'CallCtlState=0x61', 'LCMState=4 '],
+        '2': 'outgoing', '[Outgoing]': ['FXSState=0x82', 'CallCtlState=0x62', 'LCMState=5 '],
+        '3': 'talking', '[Talking]': ['FXSState=0x82', 'CallCtlState=0x64', 'LCMState=6 '],
+        '4': 'ringing', '[Ringing]': ['FXSState=0x82', 'CallCtlState=0x63', 'LCMState=3 '],
+        '5': 'hold', '[Hold]': ['FXSState=0x82', 'CallCtlState=0x87', 'LCMState=7 '],
+        '6': 'new_initiate', '[New_Init]': ['FXSState=0x82', 'CallCtlState=0x81', 'LCMState=11 '],
+        '7': 'new_talking', '[New_Talking]': ['FXSState=0x82', 'CallCtlState=0x82', 'LCMState=6 '],
+        '8': 'conference', '[Conference]': ['FXSState=0x82', 'CallCtlState=0x88', 'LCMState=9 '],
+        '9': 'conf_hold', '[Conf_Hold]': ['FXSState=0x82', 'CallCtlState=0x8d', 'LCMState=9 '],
     }
 
 exp_blf_dir = \
     {
-        'L1':'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:0',
-        'L2':'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:1',
-        'L3':'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:2',
+        'L1': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:0',
+        'L2': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:1',
+        'L3': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:2',
     }
 
 dss_key_dir = \
     {
-        'L1':{'type':'P41200', 'value':'P41300', 'account':'P41500'},
-        'L2':{'type':'P41201', 'value':'P41301', 'account':'P41501'},
-        'BLF':'3', 'ACCOUNT1':'0'
+        'key_Pvalue': {
+            'L1': {'type': 'P41200', 'value': 'P41300', 'account': 'P41500'},
+            'L2': {'type': 'P41201', 'value': 'P41301', 'account': 'P41501'},
+            'L3': {'type': 'P41202', 'value': 'P41302', 'account': 'P41502'},
+            'L4': {'type': 'P41202', 'value': 'P41302', 'account': 'P41502'},
+        },
+        'type_Code': {
+            'BLF': '3'
+        },
+        'account_Code': {
+            'ACCOUNT1': '0'
+        },
     }
+
 
 def init_log(cur_exec_file, log_level='info'):
     """
@@ -106,6 +116,7 @@ class Test_Url():
     Usage::
         >>> 见phones 14行
     """
+
     def __init__(self, ip, usr='admin', pwd='admin'):
         self.ip = ip
         self.usr = usr
@@ -127,14 +138,13 @@ def p_status(status):
     :return: 根据传入的参数，返回话机当前状态码或状态名
     Usage::
         >>> status = 'idle'
-        >>> code = p_status(status) --> 返回状态对应的url末尾的检查码
+        >>> code = p_status(status) -> 返回状态对应的url末尾的检查码
         >>> status = ['FXSState=0x82', 'CallCtlState=0x8d', 'LCMState=9 ']
-        >>> --> 返回对应的状态名
+        >>> -> 返回对应的状态名
     """
     if status in p_status_dir.values():
-        for key,value in p_status_dir.items():
+        for key, value in p_status_dir.items():
             if status == value:
                 return key
     else:
         return None
-

@@ -21,7 +21,6 @@ def set_idle_status(*kw):
                 else:
                     log.info('Press F4 return ' + r_f4.status_code)
                     log.info('Press X return ' + r_x.status_code)
-                    judge_status(ip)
             except requests.exceptions.ConnectionError:
                 log.info('Connect Error...Set [idle] status failed...')
     else:

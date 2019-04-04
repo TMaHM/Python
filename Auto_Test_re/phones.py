@@ -92,15 +92,21 @@ class Phone():
         type = type.upper()
         value = value.upper()
         account = account.upper()
-        type_Pcode = dss_key_dir[key]['type']
-        type_Pvalue = dss_key_dir[type]
-        value_Pcode = dss_key_dir[key]['value']
-        account_Pcode = dss_key_dir[key]['account']
-        account_Pvalue = dss_key_dir[account]
 
-        self.url_set_key_type = self.url.setting + type_Pcode + '=' + type_Pvalue
-        self.url_set_key_value = self.url.setting + value_Pcode + '=' + value
-        self.url_set_key_account = self.url.setting + account_Pcode + '=' + account_Pvalue
+        # 找到key对应的三个P值：type/value/account
+        pv_key_type = dss_key_dir['key_Pvalue'][key]['type']
+        pv_key_value = dss_key_dir['key_Pvalue'][key]['value']
+        pv_key_account = dss_key_dir['key_Pvalue'][key]['account']
+
+        # 找到key_type对应的code
+        pc_key_type = dss_key_dir['type_Code'][type]
+
+        # 找到account对应的code
+        pc_key_account = dss_key_dir['account_Code'][account]
+
+        self.url_set_key_type = self.url.setting + pv_key_type + '=' + pc_key_type
+        self.url_set_key_value = self.url.setting + pv_key_value + '=' + value
+        self.url_set_key_account = self.url.setting + pv_key_account + '=' + pc_key_account
 
         try:
             r_key_type = requests.get(self.url_set_key_type, timeout=1)
@@ -131,7 +137,10 @@ class Phone():
 
     def exp_blf(self, cmd):
         for k,v in exp_blf_dir.items():
-            if cmd.upper() == k:
+
+            if cmd.upper() != k:
+                continue
+            elif cmd.upper() == k:
                 self.url_exp_key = self.url.keyboard + v
                 try:
                     r_exp_key = requests.get(self.url_exp_key, timeout=1)
@@ -141,12 +150,9 @@ class Phone():
                         return True
                     else:
                         log.info(self.ip + ' trigger Expansion' + cmd + 'failed...')
-
                 except requests.exceptions.ConnectionError:
                     log.info(self.url_exp_key + ' Connection Error.')
-            else:
-                log.info("cmd " + cmd + "error, please check...")
-                return False
+
 
     def end_call(self, cmd):
         """

@@ -5,30 +5,24 @@ import requests
 import time
 
 cnt = 0
-# ip_R = input('Enter IP of DUT - Reception: ')
-# ip_A = input('Enter IP of Phone A: ')
-# ip_B = input('Enter IP of Phone B: ')
 
-
-
-# pA = Phone(ip_A)
-# pB = Phone(ip_B)
-# pR = Phone(ip_R, extension='8724')
-
-pA = Phone('10.3.2.3')
-pB = Phone('10.3.2.205')
-pR = Phone('10.3.2.180', extension='8724')
+# pR is DUT
+# The scenario: pA calls pR, pR answer the call, then blind transfer the call by expansion to pB.
+# So the pR must set dsskey transfer mode as Blind Transfer.
+# And pR need be confirmed its extension number, so pA can call it.
+pA = Phone('192.168.1.64')
+pB = Phone('192.168.1.70')
+pR = Phone('192.168.1.65', extension='047')
 
 while True:
-    pA.dial(pR.ext, account='Account=6')
+
+    pA.dial(pR.ext)
     time.sleep(3)
 
     pR.answer('SPEAKER')
     time.sleep(2)
-    pR.set_key('l2', 'blf', '2051')
 
-    pR.press_key('l2')
-    # pR.exp_blf('l1')
+    pR.exp_blf('l2')
     time.sleep(2)
 
     pB.answer('speaker')
@@ -36,7 +30,6 @@ while True:
 
     pA.end_call('SPEAKER')
     time.sleep(1)
-
 
     cnt += 1
     print(cnt)
