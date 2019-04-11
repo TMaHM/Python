@@ -3,7 +3,7 @@ import re
 pattern = r'(<P.*>).*(</.*>)'
 
 
-with open('temp.txt', 'r', encoding='utf-8') as f:
+with open('dss_code.txt', 'r', encoding='utf-8') as f:
     with open('temp.xml', 'a+', encoding='utf-8') as f1:
         content = f.readlines()
 

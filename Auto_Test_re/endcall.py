@@ -1,33 +1,31 @@
-from configs import *
 from phones import *
-from status import *
 
-import os
 import time
 
-phoneA = p_list[0]
-phoneB = p_list[1]
+# pA = p_list[0]
+# pB = p_list[1]
 # phone_c = p_list[2]
 
-cur_exec_file = os.path.basename(__file__)
-log_level = 'info'
-init_log(cur_exec_file, log_level)
+
+pA = Phone('10.3.2.22', extension='8724')
+pB = Phone('10.3.2.15', extension='3206', pwd='222222')
+
 
 cmd_answer = ['OK', 'SPEAKER', 'F1']
-cmd_end = ['X', 'SPEAKER', 'F4']
+cmd_end = ['X', 'SPEAKER', 'X']
 
 
 for cd1, cd2 in zip(cmd_answer, cmd_end):
-    phoneA.dial(phoneB.ext)
+    pA.dial(pB.ext)
     time.sleep(2)
-    phoneB.answer(cd1)
-    phoneB.end_call(cd2)
+    pB.answer(cd1)
+    pB.end_call(cd2)
 
 
-    phoneB.dial(phoneA.ext)
+    pB.dial(pA.ext)
     time.sleep(2)
-    phoneA.answer(cd1)
-    phoneA.end_call(cd2)
+    pA.answer(cd1)
+    pA.end_call(cd2)
 
-    phoneA.get_memory()
-    phoneB.get_memory()
+    pA.get_memory()
+    pB.get_memory()

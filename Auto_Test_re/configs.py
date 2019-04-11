@@ -45,47 +45,99 @@ exp_blf_dir = \
         'L1': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:0',
         'L2': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:1',
         'L3': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:2',
+        'L4': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:3',
+        'L5': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:4',
+        'L6': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:5',
+        'L7': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:6',
+        'L8': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:7',
+        'L9': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:8',
+        'L10': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:9',
+        'L11': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:10',
+        'L12': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:11',
+        'L13': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:12',
+        'L14': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:13',
+        'L15': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:14',
+        'L16': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:15',
+        'L17': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:16',
+        'L18': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:17',
+        'L19': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:18',
+        'L20': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:19',
     }
 
-dss_key_dir = \
-    {
-        'key_Pvalue': {
-            'L1': {'type': 'P41200', 'value': 'P41300', 'account': 'P41500'},
-            'L2': {'type': 'P41201', 'value': 'P41301', 'account': 'P41501'},
-            'L3': {'type': 'P41202', 'value': 'P41302', 'account': 'P41502'},
-            'L4': {'type': 'P41202', 'value': 'P41302', 'account': 'P41502'},
-        },
-        'type_Code': {
-            'BLF': '3'
-        },
-        'account_Code': {
-            'ACCOUNT1': '0'
-        },
-    }
+dsskey_dir = {}
+
+for i in range(1, 37):
+    dsskey_dir['l' + str(i)] = {'type': 'linekey' + str(i) + '_type', 'value': 'linekey' + str(i) + '_value',
+                                'account': 'linekey' + str(i) + '_account', 'label': 'linekey' + str(i) + '_label', }
+
+key_type_code_dir = {
+    'N/A': '0',
+    'Line': '1',
+    'Speeddial': '2',
+    'BLF': '3',
+    'BLF List': '4',
+    'Voicemail': '5',
+    'Direct Pickup': '6',
+    'Group Pickup': '7',
+    'Call Park': '8',
+    'Intercom': '9',
+    'DTMF': '10',
+    'Prefix': '11',
+    'Local Group': '12',
+    'XML Group': '13',
+    'XML Browser': '14',
+    'LDAP': '15',
+    'Network Directories': '16',
+    'Conference': '17',
+    'Forward': '18',
+    'Transfer': '19',
+    'Hold': '20',
+    'DND': '21',
+    'Redial': '22',
+    'Call Return': '23',
+    'SMS': '24',
+    'Record': '25',
+    'URL Record': '26',
+    'Paging': '27',
+    'Group Listening': '28',
+    'Public Hold': '29',
+    'Private Hold': '30',
+    'Hot Desking': '32',
+    'ACD': '33',
+    'Zero Touch': '34',
+    'URL': '35',
+    'Network Group': '44',
+    'MultiCast Paging': '47',
+    'Group Call Park': '51',
+    'CallPark Retrieve': '52',
+    'Pull Call': '53'}
+
+key_account_code_dir = {
+    'ACCOUNT1': '0',
+    'ACCOUNT2': '1',
+    'ACCOUNT3': '2',
+    'ACCOUNT4': '3',
+    'ACCOUNT5': '4',
+    'ACCOUNT6': '5',
+}
 
 
-def init_log(cur_exec_file, log_level='info'):
+def init_log(log_level='info'):
     """
     在具体文件执行初始化log参数
     :param cur_exec_file: 当前执行文件名，通过文件头执行os.path.basename(__file__)获得
     :param log_level: log等级，默认为info
     :return: log及截图存放目录 --> log_dir_path
-    Usage::
-        >>> cur_exec_files = os.path.basename(__file__)
-        >>> log_level = 'info'
-        >>> init_logging(cur_exec_files, log_level)
     """
     # 当前所在目录的路径
     root_path = os.path.dirname(__file__)
-    # 去除文件名后缀，用作建立当前执行文件的log存放目录
-    cur_exec_file_nosuffix = re.split(r'\.', cur_exec_file)[0]
     # log及截屏文件存放目录
     # log_dir_path = root_path + '\\log\\' + cur_exec_file_nosuffix + '\\'
     log_dir = root_path + '\\log\\'
-    screen_dir = log_dir + 'screenshot\\'
+    screen_dir = log_dir + 'screenShot\\'
     # log文件绝对路径
     log_file = log_dir + 'atlog.log'
-    screen_file = screen_dir + cur_exec_file_nosuffix
+    screen_file = screen_dir
 
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
@@ -107,14 +159,15 @@ def init_log(cur_exec_file, log_level='info'):
                         filemode='a')
     return screen_file
 
+init_log()
 
-class Test_Url():
+class TestUrl():
     """
     通用型URL的集合，提供给Phone类调用，部分需要附加参数
     ip: Phone的IP
     usr&pwd: 默认admin，需要改变时传入相应参数
     Usage::
-        >>> 见phones 14行
+        见phones 14行
     """
 
     def __init__(self, ip, usr='admin', pwd='admin'):
