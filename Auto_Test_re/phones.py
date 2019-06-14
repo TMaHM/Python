@@ -1,3 +1,4 @@
+# encoding=utf-8
 import requests
 import re
 import os
@@ -8,7 +9,7 @@ from status import *
 
 screen_dir = './log/screenShot/'
 
-class Phone():
+class Phone:
 
     def __init__(self, ip, extension=None, usr='admin', pwd='admin'):
         """
