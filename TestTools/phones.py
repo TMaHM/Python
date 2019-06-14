@@ -21,6 +21,20 @@ class Phone:
         self.usr = usr
         self.pwd = pwd
         self.url = TestUrl(self.ip, self.usr, self.pwd)
+        self.cfg_file = 'cfg%s.xml' % self.ip.replace('.', '_')
+
+        if not os.path.exists(self.cfg_file):
+            with open(self.cfg_file, 'a', encoding='utf-8') as f:
+                return_code = requests.get(
+                        'http://%s:%s@%s/download_xml_cfg' % (self.usr, self.pwd, ip)).status_code
+                if return_code == 200:
+                    file_content = requests.get(
+                            'http://%s:%s@%s/download_xml_cfg' % (self.usr, self.pwd, ip)).content.decode()
+                    f.write(file_content)
+                else:
+                    file_content = requests.get(
+                            'http://%s:%s@%s/download_xml_cfg' % (self.usr, self.pwd, ip)).content.decode()
+                    f.write(file_content)
 
     def dial(self, dst_ext, account='Account=1'):
         """
@@ -81,11 +95,52 @@ class Phone:
 
         return check_answer
 
-    def set_key(self, key, k_type, value, account='Account1', label=''):
+    def get_line_key(self, key):
+        """
+        :param key: 指定要获取状态的LineKey，变量范围L1-L36
+        :return: 返回指定的LineKey的状态，如L1->Account
+        """
+        lineKeyNum = re.findall(r'\d+', key)
+        if lineKeyNum:
+            pat_lineKey = r'LineKey%s_Type' % lineKeyNum[0]
+            patKeyType = r'(?<=>).*(?=<)'
+            with open(self.cfg_file, encoding='utf-8') as f:
+                lines = f.readlines()
+                for each_line in lines:
+                    if pat_lineKey in each_line:
+                        keyTypeCode = re.findall(patKeyType, each_line)
+                        break
+                    else:
+                        keyTypeCode = None
+        else:
+            log.info('Input line key [ %s ] mismatches, need to check.' % key)
 
-        k_type = k_type.upper()
-        value = value.upper()
-        account = account.upper()
+        cnt = 0  # 遍历key type字典时计数，遍历到结束时仍没有匹配返回No such key
+        matchedKeyType = None  # 查字典，返回匹配到的Line Key的类型
+        if keyTypeCode is not None:
+            for k, v in key_type_code_dir.items():
+                if keyTypeCode[0] == v:
+                    cnt += 1
+                    matchedKeyType = k
+                else:
+                    continue
+
+            if cnt == 1:
+                return matchedKeyType
+
+            elif cnt > 1:
+                log.info('Matched key type is not unique, need to check.')
+                return 'Not Unique'
+
+            elif cnt == 0:
+                log.info("No key matched, need to check.")
+                return 'No Suck Key.'
+
+    def set_line_key(self, key, k_type, value, account='Account1', label=''):
+
+        # k_type = k_type.upper()
+        # value = value.upper()
+        # account = account.upper()
 
         pat_key_type = dsskey_dir[key]['type']
         pat_key_value = dsskey_dir[key]['value']
@@ -97,56 +152,76 @@ class Phone:
 
         pat_pv = r'(?<=<)(P\d+)'
 
-        with open('cfg.xml', 'r', encoding='utf-8') as f:
+        with open('%s/cfg.xml' % cur_dir, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             for eachLine in lines:
                 key_type = re.findall(pat_key_type, eachLine, flags=re.IGNORECASE)
-                key_value = re.findall(pat_key_value, eachLine, flags=re.IGNORECASE)
-                key_account = re.findall(pat_key_account, eachLine, flags=re.IGNORECASE)
-                key_label = re.findall(pat_key_label, eachLine, flags=re.IGNORECASE)
-
-                if key_type and key_value and key_account and key_label:
+                if key_type:
                     pv_key_type = re.findall(pat_pv, eachLine)[0]
                     url_set_key_type = self.url.setting + pv_key_type + '=' + pc_key_type
-
-                    pv_key_value = re.findall(pat_pv, eachLine)[0]
-                    url_set_key_value = self.url.setting + pv_key_value + '=' + value
-
-                    pv_key_account = re.findall(pat_pv, eachLine)[0]
-                    url_set_key_account = self.url.setting + pv_key_account + '=' + pc_key_account
-
-                    pv_key_label = re.findall(pat_pv, eachLine)[0]
-                    url_set_key_label = self.url.setting + pv_key_label + '=' + label
-
                     try:
                         r_key_type = requests.get(url_set_key_type, timeout=2)
+                        if r_key_type.status_code == 200:
+                            log.info('%s set %s as %s success.' % (self.ip, key, k_type))
+                        else:
+                            log.info('%s set %s as %s failed.' % (self.ip, key, k_type))
+                    except requests.exceptions.ConnectionError:
+                        log.info(self.ip + ' connection error.')
+
+                key_value = re.findall(pat_key_value, eachLine, flags=re.IGNORECASE)
+                if key_value:
+                    pv_key_value = re.findall(pat_pv, eachLine)[0]
+                    url_set_key_value = self.url.setting + pv_key_value + '=' + value
+                    try:
                         r_key_value = requests.get(url_set_key_value, timeout=2)
+                        if r_key_value.status_code == 200:
+                            log.info('%s set %s value as %s success.' % (self.ip, key, value))
+                        else:
+                            log.info('%s set %s value as %s failed.' % (self.ip, key, value))
+                    except requests.exceptions.ConnectionError:
+                        log.info(self.ip + ' connection error.')
+
+                key_account = re.findall(pat_key_account, eachLine, flags=re.IGNORECASE)
+                if key_account:
+                    pv_key_account = re.findall(pat_pv, eachLine)[0]
+                    url_set_key_account = self.url.setting + pv_key_account + '=' + pc_key_account
+                    try:
                         r_key_account = requests.get(url_set_key_account, timeout=2)
-                        if label != '':
+                        if r_key_account.status_code == 200:
+                            log.info('%s set %s account as %s success.' % (self.ip, key, account))
+                        else:
+                            log.info('%s set %s account as %s success.' % (self.ip, key, account))
+                    except requests.exceptions.ConnectionError:
+                        log.info(self.ip + ' connection error.')
+
+                key_label = re.findall(pat_key_label, eachLine, flags=re.IGNORECASE)
+                if key_label:
+                    pv_key_label = re.findall(pat_pv, eachLine)[0]
+                    url_set_key_label = self.url.setting + pv_key_label + '=' + label
+                    if label != '':
+                        try:
                             r_key_label = requests.get(url_set_key_label, timeout=2)
                             if r_key_label.status_code != 200:
                                 log.info(self.ip + ' set label failed.')
                             else:
                                 pass
-                        if (r_key_type.status_code and r_key_value.status_code and r_key_account.status_code) == 200:
-                            log.info(self.ip + ' set ' + key + ' as ' + k_type + ' success.')
-                        else:
-                            log.info(self.ip + ' set ' + key + ' as ' + k_type + ' failed...')
-                            log.info(
-                                'check:\n' + url_set_key_type + '\n' + url_set_key_value + '\n' + url_set_key_account)
-
-                    except requests.exceptions.ConnectionError:
-                        log.info(self.ip + ' connection error.')
+                        except requests.exceptions.ConnectionError:
+                            log.info(self.ip + ' connection error.')
 
     def press_key(self, cmd):
+        pressKeyFlag = False
         url_press_key = self.url.keyboard + cmd.upper()
         try:
             r_pr = requests.get(url_press_key, timeout=2)
             if r_pr.status_code == 200:
                 time.sleep(1)
-                log.info(self.ip + ' press ' + cmd)
+                log.info(self.ip + ' press ' + cmd.upper())
+                pressKeyFlag = True  # 如果成功，将标识置为True
             else:
-                log.info(self.ip + ' press ' + cmd + ' failed...')
+                log.info(self.ip + ' press ' + cmd.upper() + ' failed...')
+                return pressKeyFlag  # 失败，直接返回False
+
+            return pressKeyFlag  # 返回被置为True的标识
 
         except requests.exceptions.ConnectionError:
             log.info(url_press_key + ' Connection Error.')
@@ -264,6 +339,5 @@ class Phone:
 
         return check_screen_shot
 
-
-for i in range(num_dut):
-    p_list.append(Phone(ip_list[i], ext_list[i]))
+# for i in range(num_dut):
+#     p_list.append(Phone(ip_list[i], ext_list[i]))

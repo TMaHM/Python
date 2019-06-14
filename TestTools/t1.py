@@ -1,18 +1,14 @@
-import requests
-import time
+# from phones import *
+# import configs
+#
+# p = Phone('10.3.2.47')
+# testKey = 'l14'
+# testFunction = 'multicast paging'
+# multicastAddress = '224.10.20.20:2020'
+# label = 'AutoTestMPaging'
+# p.set_line_key(testKey, testFunction, multicastAddress, label=label)
+#
+import os
 
-multicastPaging = "http://admin:admin@10.3.2.47/AutoTest&keyboard=L14"
-
-endPaging= "http://admin:admin@10.3.2.47/AutoTest&keyboard=F4"
-
-for i in range(10000):
-
-    sPaging = requests.get(multicastPaging)
-
-    time.sleep(3)
-
-    ePaging = requests.get(endPaging)
-
-    time.sleep(2)
-
-    print(i)
+s = os.path.dirname(__file__)
+print(s)

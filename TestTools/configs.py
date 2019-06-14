@@ -1,29 +1,6 @@
 import os
 import logging as log
 
-# 定义执行话机总数，在phones.py中实例化
-num_dut = 5
-
-# 定义DUT的IP
-ip1 = '10.3.2.22'
-ip2 = '10.3.2.19'
-ip3 = '10.3.2.24'
-ip4 = '10.3.2.25'
-ip5 = '10.3.2.26'
-
-# 定义DUT的ext --> 与IP一一对应
-ext1 = '8724'
-ext2 = '3207'
-ext3 = '8760'
-ext4 = '8811'
-ext5 = '8921'
-
-ip_list = [ip1, ip2, ip3, ip4, ip5]
-ext_list = [ext1, ext2, ext3, ext4, ext5]
-
-# 定义话机列表，方便在具体脚本中赋值
-p_list = []
-
 # 定义话机状态字典，用于status.py，设置idle态及check状态
 p_status_dir = \
     {
@@ -41,15 +18,15 @@ p_status_dir = \
 
 exp_blf_dir = \
     {
-        'L1': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:0',
-        'L2': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:1',
-        'L3': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:2',
-        'L4': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:3',
-        'L5': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:4',
-        'L6': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:5',
-        'L7': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:6',
-        'L8': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:7',
-        'L9': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:8',
+        'L1' : 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:0',
+        'L2' : 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:1',
+        'L3' : 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:2',
+        'L4' : 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:3',
+        'L5' : 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:4',
+        'L6' : 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:5',
+        'L7' : 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:6',
+        'L8' : 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:7',
+        'L9' : 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:8',
         'L10': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:9',
         'L11': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:10',
         'L12': 'EXPANSION:EXP_NO:0EXP_PAGE:0EXP_KEYNO:11',
@@ -66,50 +43,50 @@ exp_blf_dir = \
 dsskey_dir = {}
 
 for i in range(1, 37):
-    dsskey_dir['l' + str(i)] = {'type': 'linekey' + str(i) + '_type', 'value': 'linekey' + str(i) + '_value',
+    dsskey_dir['l' + str(i)] = {'type'   : 'linekey' + str(i) + '_type', 'value': 'linekey' + str(i) + '_value',
                                 'account': 'linekey' + str(i) + '_account', 'label': 'linekey' + str(i) + '_label', }
 
 key_type_code_dir = {
-    'N/A': '0',
-    'Line': '1',
-    'Speeddial': '2',
-    'BLF': '3',
-    'BLF List': '4',
-    'Voicemail': '5',
-    'Direct Pickup': '6',
-    'Group Pickup': '7',
-    'Call Park': '8',
-    'Intercom': '9',
-    'DTMF': '10',
-    'Prefix': '11',
-    'Local Group': '12',
-    'XML Group': '13',
-    'XML Browser': '14',
-    'LDAP': '15',
-    'Network Directories': '16',
-    'Conference': '17',
-    'Forward': '18',
-    'Transfer': '19',
-    'Hold': '20',
-    'DND': '21',
-    'Redial': '22',
-    'Call Return': '23',
-    'SMS': '24',
-    'Record': '25',
-    'URL Record': '26',
-    'Paging': '27',
-    'Group Listening': '28',
-    'Public Hold': '29',
-    'Private Hold': '30',
-    'Hot Desking': '32',
-    'ACD': '33',
-    'Zero Touch': '34',
-    'URL': '35',
-    'Network Group': '44',
-    'MultiCast Paging': '47',
-    'Group Call Park': '51',
-    'CallPark Retrieve': '52',
-    'Pull Call': '53'}
+    'N/A'                : '0',
+    'LINE'               : '1',
+    'SPEEDDIAL'          : '2',
+    'BLF'                : '3',
+    'BLF LIST'           : '4',
+    'VOICEMAIL'          : '5',
+    'DIRECT PICKUP'      : '6',
+    'GROUP PICKUP'       : '7',
+    'CALL PARK'          : '8',
+    'INTERCOM'           : '9',
+    'DTMF'               : '10',
+    'PREFIX'             : '11',
+    'LOCAL GROUP'        : '12',
+    'XML GROUP'          : '13',
+    'XML BROWSER'        : '14',
+    'LDAP'               : '15',
+    'NETWORK DIRECTORIES': '16',
+    'CONFERENCE'         : '17',
+    'FORWARD'            : '18',
+    'TRANSFER'           : '19',
+    'HOLD'               : '20',
+    'DND'                : '21',
+    'REDIAL'             : '22',
+    'CALL RETURN'        : '23',
+    'SMS'                : '24',
+    'RECORD'             : '25',
+    'URL RECORD'         : '26',
+    'PAGING'             : '27',
+    'GROUP LISTENING'    : '28',
+    'PUBLIC HOLD'        : '29',
+    'PRIVATE HOLD'       : '30',
+    'HOT DESKING'        : '32',
+    'ACD'                : '33',
+    'ZERO TOUCH'         : '34',
+    'URL'                : '35',
+    'NETWORK GROUP'      : '44',
+    'MULTICAST PAGING'   : '47',
+    'GROUP CALL PARK'    : '51',
+    'CALLPARK RETRIEVE'  : '52',
+    'PULL CALL'          : '53'}
 
 key_account_code_dir = {
     'ACCOUNT1': '0',
@@ -120,6 +97,7 @@ key_account_code_dir = {
     'ACCOUNT6': '5',
 }
 
+cur_dir = os.path.dirname(__file__)
 
 def init_log(log_level='info'):
     """
