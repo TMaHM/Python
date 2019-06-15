@@ -5,7 +5,7 @@ from status import *
 screen_dir = './log/screenShot/'
 
 
-class Phone:
+class Phone(object):
 
     def __init__(self, ip, extension=None, usr='admin', pwd='admin'):
         """
@@ -24,17 +24,23 @@ class Phone:
         self.cfg_file = 'cfg%s.xml' % self.ip.replace('.', '_')
 
         if not os.path.exists(self.cfg_file):
+            print('Preparing configuration files, please wait...')
             with open(self.cfg_file, 'a', encoding='utf-8') as f:
-                return_code = requests.get(
-                        'http://%s:%s@%s/download_xml_cfg' % (self.usr, self.pwd, ip)).status_code
+                log.info('Try to download %s' % self.cfg_file)
+                return_code = requests.get('http://%s:%s@%s/download_xml_cfg' % (self.usr, self.pwd, ip)).status_code
                 if return_code == 200:
                     file_content = requests.get(
                             'http://%s:%s@%s/download_xml_cfg' % (self.usr, self.pwd, ip)).content.decode()
                     f.write(file_content)
-                else:
+                    log.info('Download %s success.' % self.cfg_file)
+                    print('Configuration file prepared.')
+                elif return_code == 401:
+                    log.info('Try download %s again.' % self.cfg_file)
                     file_content = requests.get(
                             'http://%s:%s@%s/download_xml_cfg' % (self.usr, self.pwd, ip)).content.decode()
                     f.write(file_content)
+                    log.info('Download %s success.' % self.cfg_file)
+                    print('Configuration file prepared.')
 
     def dial(self, dst_ext, account='Account=1'):
         """
@@ -98,65 +104,98 @@ class Phone:
     def get_line_key(self, key):
         """
         :param key: 指定要获取状态的LineKey，变量范围L1-L36
-        :return: 返回指定的LineKey的状态，如L1->Account
+        :return: 返回指定的LineKey的属性字典
+        :如L1->{'type': 'LINE', 'value': 'None', 'label': '8724 | Stephen Yu', 'account': 'ACCOUNT1'}
         """
-        lineKeyNum = re.findall(r'\d+', key)
-        if lineKeyNum:
-            pat_lineKey = r'LineKey%s_Type' % lineKeyNum[0]
-            patKeyType = r'(?<=>).*(?=<)'
+        import linecache
+
+        line_key_num = re.findall(r'\d+', key)
+        if line_key_num:
+            pat_lineKey = r'LineKey%s_Type' % line_key_num[0]
+            pat_key_type = r'(?<=>).*(?=<)'
             with open(self.cfg_file, encoding='utf-8') as f:
+                linesCnt = 0
                 lines = f.readlines()
                 for each_line in lines:
+                    linesCnt += 1
                     if pat_lineKey in each_line:
-                        keyTypeCode = re.findall(patKeyType, each_line)
+                        matched_key_type_code = re.findall(pat_key_type, each_line)
+                        matched_key_value = re.findall(pat_key_type, linecache.getline(self.cfg_file, linesCnt + 2))
+                        if matched_key_value:
+                            real_key_value = matched_key_value[0]
+                        else:
+                            real_key_value = None
+                        matched_key_label = re.findall(pat_key_type, linecache.getline(self.cfg_file, linesCnt + 3))
+                        if matched_key_label:
+                            real_key_label = matched_key_label[0]
+                        else:
+                            real_key_label = None
+                        matched_key_account = re.findall(pat_key_type, linecache.getline(self.cfg_file, linesCnt + 4))
                         break
                     else:
-                        keyTypeCode = None
+                        matched_key_type_code = None
         else:
             log.info('Input line key [ %s ] mismatches, need to check.' % key)
 
-        cnt = 0  # 遍历key type字典时计数，遍历到结束时仍没有匹配返回No such key
-        matchedKeyType = None  # 查字典，返回匹配到的Line Key的类型
-        if keyTypeCode is not None:
+        if matched_key_type_code is not None:
+            cnt = 0  # 遍历key type字典时计数，遍历到结束时仍没有匹配返回No such key
+            real_key_type = None  # 查字典，返回匹配到的Line Key的类型
+            real_key_account = None  # 查字典，返回匹配到的Line Account的类型
             for k, v in key_type_code_dir.items():
-                if keyTypeCode[0] == v:
+                if matched_key_type_code[0] == v:
                     cnt += 1
-                    matchedKeyType = k
+                    real_key_type = k
                 else:
                     continue
 
             if cnt == 1:
-                return matchedKeyType
+                # 如果找到keyType，再找keyAccount，未找到的情况下返回默认的None
+                for k, v in key_account_code_dir.items():
+                    if matched_key_account[0] == v:
+                        real_key_account = k
+                    else:
+                        continue
 
-            elif cnt > 1:
+                key_property = {'type'   : '%s' % real_key_type,
+                                'value'  : '%s' % real_key_value,
+                                'label'  : '%s' % real_key_label,
+                                'account': '%s' % real_key_account}
+                log.info('Check LineKey_%s properties return: %s' % (line_key_num[0], key_property))
+                return key_property
+
+            elif cnt > 1:  # 应该不可能会在字典里找到两个一样的，这里加上作为防范
                 log.info('Matched key type is not unique, need to check.')
                 return 'Not Unique'
 
-            elif cnt == 0:
+            elif cnt < 1:
                 log.info("No key matched, need to check.")
                 return 'No Suck Key.'
 
     def set_line_key(self, key, k_type, value, account='Account1', label=''):
+        # 格式化 k_type 和 account 字符串，采用全大写形式
+        keyTypeUpper = k_type.upper()
+        accountUpper = account.upper()
 
-        # k_type = k_type.upper()
-        # value = value.upper()
-        # account = account.upper()
-
+        # 准备字符串用来在xml文件中匹配，找出传入的key对应的type/value/account/label所在的行
+        # 例如LineKey1_Type
         pat_key_type = dsskey_dir[key]['type']
         pat_key_value = dsskey_dir[key]['value']
         pat_key_account = dsskey_dir[key]['account']
         pat_key_label = dsskey_dir[key]['label']
 
-        pc_key_type = key_type_code_dir[k_type.upper()]
-        pc_key_account = key_account_code_dir[account.upper()]
-
+        # 准备字符串用来在找到的行中，将对应的P值找出
         pat_pv = r'(?<=<)(P\d+)'
 
-        with open('%s/cfg.xml' % cur_dir, 'r', encoding='utf-8') as f:
+        # 在key_type_code_dir和key_account_code_dir字典中找到传入的k_type和account对应的值
+        # 如N/A - 0
+        pc_key_type = key_type_code_dir[keyTypeUpper]
+        pc_key_account = key_account_code_dir[accountUpper]
+
+        with open('%s/cfg.xml' % os.path.dirname(__file__), 'r', encoding='utf-8') as f:
             lines = f.readlines()
             for eachLine in lines:
-                key_type = re.findall(pat_key_type, eachLine, flags=re.IGNORECASE)
-                if key_type:
+                matched_key_type = re.findall(pat_key_type, eachLine, flags=re.IGNORECASE)
+                if matched_key_type:
                     pv_key_type = re.findall(pat_pv, eachLine)[0]
                     url_set_key_type = self.url.setting + pv_key_type + '=' + pc_key_type
                     try:
@@ -209,19 +248,19 @@ class Phone:
                             log.info(self.ip + ' connection error.')
 
     def press_key(self, cmd):
-        pressKeyFlag = False
+        press_key_flag = False
         url_press_key = self.url.keyboard + cmd.upper()
         try:
             r_pr = requests.get(url_press_key, timeout=2)
             if r_pr.status_code == 200:
-                time.sleep(1)
+                # time.sleep(1)
                 log.info(self.ip + ' press ' + cmd.upper())
-                pressKeyFlag = True  # 如果成功，将标识置为True
+                press_key_flag = True  # 如果成功，将标识置为True
             else:
                 log.info(self.ip + ' press ' + cmd.upper() + ' failed...')
-                return pressKeyFlag  # 失败，直接返回False
+                return press_key_flag  # 失败，直接返回False
 
-            return pressKeyFlag  # 返回被置为True的标识
+            return press_key_flag  # 返回被置为True的标识
 
         except requests.exceptions.ConnectionError:
             log.info(url_press_key + ' Connection Error.')
@@ -283,6 +322,33 @@ class Phone:
             log.info(url_end + ' Connection Error.')
 
         return check_end
+
+    def set_idle_status(self):
+        result = False
+
+        url_return_idle = self.url.prefix + '/drd=RETURNIDLE'
+        # log.info('Try to set [idle] status in ' + ip)
+        try:
+            r_return_idle = requests.get(url_return_idle, timeout=1)
+            if r_return_idle.status_code == 200:
+                log.info(self.ip + ' set [idle] status in ' + self.ip + ' success.')
+                result = True
+            elif r_return_idle.status_code == 404:
+                log.info('%s has not merged, try press [SPEAKER] twice to return to idle.' % url_return_idle)
+                self.press_key('speaker')
+                time.sleep(0.5)
+                self.press_key('speaker')
+                time.sleep(2)
+                if check_status('idle', self.ip):
+                    log.info('Return to Idle status success.')
+                else:
+                    log.info('Return to Idle status failed.')
+            else:
+                log.info('%s return %s' % (url_return_idle, r_return_idle.status_code))
+        except requests.exceptions.ConnectionError:
+            log.info('Connect Error...Set [idle] status failed...')
+
+        return result
 
     def get_memory(self):
         """

@@ -97,7 +97,6 @@ key_account_code_dir = {
     'ACCOUNT6': '5',
 }
 
-cur_dir = os.path.dirname(__file__)
 
 def init_log(log_level='info'):
     """
